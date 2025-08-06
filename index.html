@@ -2,31 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>TV9 Telugu Latest Videos</title>
+  <title>TV9 Telugu YouTube Feed</title>
 </head>
 <body>
   <h2>Latest Videos from TV9 Telugu</h2>
-  <div id="youtube-feed"></div>
+  
+  <iframe width="560" height="315"
+    src="https://www.youtube.com/embed/videoseries?list=UUXAo7aYgoLzgQ2G-yDW_8EA"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen></iframe>
 
-  <script>
-    const rssUrl = encodeURIComponent("https://www.youtube.com/feeds/videos.xml?channel_id=UCXAo7aYgoLzgQ2G-yDW_8EA");
-
-    fetch(`https://api.allorigins.win/get?url=${rssUrl}`)
-      .then(response => response.json())
-      .then(data => {
-        const parser = new DOMParser();
-        const xml = parser.parseFromString(data.contents, "text/xml");
-        const items = xml.querySelectorAll("entry");
-        let html = "";
-        items.forEach(el => {
-          const videoId = el.querySelector("yt\\:videoId").textContent;
-          html += `
-            <iframe width="300" height="200"
-              src="https://www.youtube.com/embed/${videoId}"
-              frameborder="0" allowfullscreen></iframe><br><br>`;
-        });
-        document.getElementById("youtube-feed").innerHTML = html;
-      });
-  </script>
 </body>
 </html>
