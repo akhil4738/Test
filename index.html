@@ -1,17 +1,671 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>TV9 Telugu YouTube Feed</title>
-</head>
-<body>
-  <h2>Latest Videos from TV9 Telugu</h2>
-  
-  <iframe width="560" height="315"
-    src="https://www.youtube.com/embed/videoseries?list=UUXAo7aYgoLzgQ2G-yDW_8EA"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen></iframe>
+<html lang="en-IN">
 
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title id="pageTitle">TCWC • News Shorts Feed</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+
+    <script>
+        // Tailwind Configuration
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: '#FF0033', // Primary brand red
+                        'text-dark': '#1f2937',
+                        'text-muted': '#6b7280',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom styles integrated from your latest layout */
+        body {
+            background-color: #f9fafb;
+            font-family: 'Inter', sans-serif;
+            color: #1f2937;
+        }
+
+        .nav-link.active {
+            color: #FF0033;
+            border-bottom: 2px solid #FF0033;
+        }
+
+        .nav-link:hover {
+            color: #FF0033;
+            transition: 0.3s;
+        }
+
+        /* Hide scrollbar for chips/navigation bar */
+        .chip-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .chip-container {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        /* Chip default styling */
+        .chip {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 9999px;
+            margin-right: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.15s ease-in-out;
+            background-color: #e5e7eb; /* bg-gray-200 */
+            color: #1f2937; /* text-text-dark */
+            cursor: pointer;
+        }
+
+        .chip:hover {
+            background-color: #d1d5db; /* hover:bg-gray-300 */
+        }
+
+        /* Chip active state styling */
+        .chip.active {
+            background-color: #1f2937; /* bg-gray-900 */
+            color: #ffffff; /* text-white */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+        }
+
+        /* --- VERTICAL SHORTS FEED STYLES --- */
+
+        /* Container for the scrollable shorts view */
+        .shorts-container {
+            display: flex;
+            flex-direction: column;
+            /* Adjusted height based on your latest suggestion (180px for header + footer area) */
+            height: calc(100vh - 180px);
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            max-width: 450px;
+            margin: 0 auto;
+            padding-bottom: 2rem;
+        }
+
+        /* Individual Card in the Shorts Feed */
+        .shorts-card {
+            scroll-snap-align: start;
+            background: #fff;
+            margin: 15px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease;
+            min-height: calc(100% - 30px);
+            /* Fill most of the viewport section */
+            flex-shrink: 0;
+        }
+
+        .shorts-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Video/Thumbnail Area */
+        .shorts-thumb {
+            position: relative;
+            width: 100%;
+            min-height: 250px;
+            flex-grow: 1;
+            /* Allows it to take up available height */
+            cursor: pointer;
+        }
+
+        .shorts-thumb img,
+        .shorts-thumb iframe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            top: 0;
+            left: 0;
+        }
+
+        /* Play overlay */
+        .play-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 3rem;
+            z-index: 10;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="sticky top-0 bg-white shadow-lg z-20">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center p-3">
+            <a href="#" class="text-2xl font-extrabold text-[#FF0033]" data-page="all-news" aria-label="TCWC News Home">TCWC-NEWS</a>
+            <nav class="flex space-x-4 font-semibold mt-2 md:mt-0">
+                <a href="#" class="nav-link" data-page="telugu-news" aria-label="View Telugu News">Telugu News</a>
+                <a href="#" class="nav-link" data-page="hindi-news" aria-label="View Hindi News">Hindi News</a>
+                <a href="#" class="nav-link" data-page="english-news" aria-label="View English News">English News</a>
+                <a href="#" class="nav-link" data-page="about-us" aria-label="Learn About Us">About Us</a>
+                <a href="#" class="nav-link" data-page="contact-us" aria-label="Contact Us">Contact Us</a>
+            </nav>
+        </div>
+    </header>
+
+    <div id="pageContent" class="min-h-screen">
+        </div>
+
+    <footer class="bg-gray-900 text-gray-300 mt-8 pt-10 pb-6">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8 px-6">
+            <div>
+                <h3 class="text-white font-bold text-xl mb-3">TCWC News</h3>
+                <p class="text-sm text-gray-400">Your trusted source for quick and reliable short video news in Telugu, Hindi, and English.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-semibold mb-3">Quick Links</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" data-page="all-news" class="hover:text-brand" aria-label="Home">Home</a></li>
+                    <li><a href="#" data-page="about-us" class="hover:text-brand" aria-label="About Us">About Us</a></li>
+                    <li><a href="#" data-page="contact-us" class="hover:text-brand" aria-label="Contact Us">Contact Us</a></li>
+                    <li><a href="#" data-page="english-news" class="hover:text-brand" aria-label="English News">English News</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-semibold mb-3">Follow Us</h4>
+                <div class="flex space-x-4 text-xl">
+                    <a href="#" class="hover:text-brand" aria-label="Follow us on Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="hover:text-brand" aria-label="Follow us on Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="hover:text-brand" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="hover:text-brand" aria-label="Subscribe to our YouTube channel"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-8 text-center text-sm text-gray-500 border-t border-gray-700 pt-4">
+            © 2025 TCWC News. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        // --- VIDEO DATA (Keep comprehensive data for all categories) ---
+        const telugu = [{
+            title: "V6 Telugu — Live",
+            meta: "Telugu • Live News",
+            src: "https://www.youtube.com/embed/nrb8P8shbDk"
+        }, {
+            title: "TV9 Telugu — Live Breaking",
+            meta: "Telugu • Live Analysis",
+            src: "https://www.youtube.com/embed/II_m28Bm-iM"
+        }, {
+            title: "NTV Telugu — Prime Time",
+            meta: "Telugu • Current Affairs",
+            src: "https://www.youtube.com/embed/L0RktSIM980"
+        }, {
+            title: "ABN Andhra Jyothi — Live Updates",
+            meta: "Telugu • Reporter Feed",
+            src: "https://www.youtube.com/embed/HoYsWagMFfE"
+        }, {
+            title: "Sakshi TV — Live Debate",
+            meta: "Telugu • Political Talk",
+            src: "https://www.youtube.com/embed/9kCcUipLPJM"
+        }, ];
+
+        const hindi = [{
+            title: "India TV — Breaking News",
+            meta: "Hindi • Live Updates",
+            src: "https://www.youtube.com/embed/Xmm3Kr5P1Uw"
+        }, {
+            title: "TV9 Bharatvarsh — Special Report",
+            meta: "Hindi • War Coverage",
+            src: "https://www.youtube.com/embed/nSpwwcHVp80"
+        }, {
+            title: "ABP News — Latest Headlines",
+            meta: "Hindi • Top Stories",
+            src: "https://www.youtube.com/embed/nyd-xznCpJc"
+        }, {
+            title: "DD News — National Broadcast",
+            meta: "Hindi • Government News",
+            src: "https://www.youtube.com/embed/cSQ7egiOTaA"
+        }, ];
+
+        const english = [{
+            title: "NDTV 24x7 — Global Watch",
+            meta: "English • International News",
+            src: "https://www.youtube.com/embed/uoK1dFpMo98"
+        }, ];
+
+        const international = [{
+            title: "Al Jazeera English — World Report",
+            meta: "International • Analysis",
+            src: "https://www.youtube.com/embed/gCNeDWCI0vo"
+        }, {
+            title: "DW News — Europe Today",
+            meta: "International • German Perspective",
+            src: "https://www.youtube.com/embed/LuKwFajn37U"
+        }, {
+            title: "France 24 — French Headlines",
+            meta: "International • Global Events",
+            src: "https://www.youtube.com/embed/Ap-UM1O9RBU"
+        }, {
+            title: "DD India — India's Global Voice",
+            meta: "International • Diplomatic News",
+            src: "https://www.youtube.com/embed/5OELrhIb3q0"
+        }, ];
+
+        const congress = [{
+            title: "Voter Adhikar Yatra | West Champaran | Bihar",
+            meta: "Politics • Live Speech", // Added meta for consistency
+            src: "https://www.youtube.com/embed/DwpwEjs36js"
+        }, {
+            title: "Makhana: Superfood के पीछे का संघर्ष | Rahul Gandhi",
+            meta: "Politics • Documentary Short", // Added meta for consistency
+            src: "https://www.youtube.com/embed/mab_6OZEvos"
+        }, {
+            title: "Vote Chori 2024: देश का सबसे बड़ा चुनावी घोटाला",
+            meta: "Politics • Press Conference", // Added meta for consistency
+            src: "https://www.youtube.com/embed/-cc9wpgIYPc"
+        }, {
+            title: "Vote Chori के atom bomb सबूत | Press Conference",
+            meta: "Politics • Press Conference", // Added meta for consistency
+            src: "https://www.youtube.com/embed/nc6F4YFnG9c"
+        }];
+
+        const videos = {
+            telugu,
+            hindi,
+            english,
+            international,
+            congress
+        };
+
+        const allVideos = [...telugu, ...hindi, ...english, ...international, ...congress];
+        const pageContent = document.getElementById("pageContent");
+        let observer; // Global observer instance
+
+        // --- HELPER FUNCTIONS ---
+
+        function getVideoId(url) {
+            const match = url.match(/embed\/([^?]+)/);
+            return match ? match[1] : "";
+        }
+
+        // --- VIDEO CONTROL FUNCTIONS ---
+
+        // Replaces the thumbnail with the YouTube iframe and autoplays
+        function playVideo(thumbElement) {
+            if (thumbElement.querySelector('iframe')) return;
+
+            // Stops any currently playing video that isn't the current one
+            document.querySelectorAll('.shorts-thumb iframe').forEach(iframe => {
+                if (iframe.closest('.shorts-thumb') !== thumbElement) {
+                    stopVideo(iframe.closest('.shorts-thumb'));
+                }
+            });
+
+            // Note: The 'allow' attribute includes 'autoplay' to enable auto-playback.
+            const src = thumbElement.dataset.src + "?autoplay=1&rel=0&controls=1";
+            const title = thumbElement.dataset.title;
+
+            thumbElement.innerHTML = `
+                <iframe
+                src="${src}"
+                title="YouTube video player: ${title}"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                loading="lazy"
+                class="w-full h-full absolute top-0 left-0 z-50"
+                ></iframe>`;
+        }
+
+        // Stops a single video by replacing the iframe with the thumbnail
+        function stopVideo(thumbElement) {
+            const iframe = thumbElement.querySelector('iframe');
+            if (!iframe) return;
+
+            const src = thumbElement.dataset.src;
+            const title = thumbElement.dataset.title;
+            const vid = getVideoId(src);
+            const thumbUrl = `https://img.youtube.com/vi/${vid}/hqdefault.jpg`;
+            const placeholderUrl = 'https://placehold.co/600x1067/1f2937/f9fafb?text=News+Short';
+
+            thumbElement.innerHTML = `
+                <img src="${thumbUrl}" alt="${title}" onerror="this.onerror=null; this.src='${placeholderUrl}'" class="w-full h-full object-cover">
+                <div class="play-overlay">
+                    <i class="fa-solid fa-play"></i>
+                </div>
+            `;
+        }
+
+        // Global stop function (used when switching pages)
+        function stopAllVideosGlobal() {
+            if (observer) {
+                observer.disconnect();
+            }
+            document.querySelectorAll(".shorts-thumb").forEach(thumb => stopVideo(thumb));
+        }
+
+
+        // --- INTERSECTION OBSERVER SETUP ---
+
+        function setupIntersectionObserver() {
+            if (observer) {
+                observer.disconnect();
+            }
+
+            const shortsContainer = document.getElementById('videoGrid');
+            if (!shortsContainer) return;
+
+            const options = {
+                root: shortsContainer,
+                rootMargin: '0px',
+                threshold: 0.8 // Play when 80% of the card is visible
+            };
+
+            observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const thumb = entry.target.querySelector('.shorts-thumb');
+                    if (!thumb) return;
+
+                    if (entry.isIntersecting) {
+                        playVideo(thumb);
+                    } else {
+                        stopVideo(thumb);
+                    }
+                });
+            }, options);
+
+            document.querySelectorAll('.shorts-card').forEach(card => {
+                observer.observe(card);
+            });
+        }
+
+        // --- PAGE RENDERING LOGIC (SPA Router) ---
+
+        // Sets the active class on the correct navigation link
+        function setActiveNavLink(pageId) {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            const mainLink = pageId.endsWith('-news') ? pageId.replace('-news', '') : pageId;
+            const activeLink = document.querySelector(`.nav-link[data-page="${mainLink}-news"], .nav-link[data-page="${mainLink}"]`);
+
+            if (activeLink) {
+                activeLink.classList.add('active');
+            } else if (pageId === 'all-news') {
+                // Highlight all news link if we filter to a sub-category via chip
+                document.querySelector('.nav-link[data-page="telugu-news"]').classList.remove('active');
+                document.querySelector('.nav-link[data-page="hindi-news"]').classList.remove('active');
+                document.querySelector('.nav-link[data-page="english-news"]').classList.remove('active');
+            }
+        }
+
+        // Renders the main content for a news page
+        function renderNewsPage(filterKey = 'all') {
+            stopAllVideosGlobal();
+
+            let pageTitleText = 'All News';
+            let sectionTitle = 'Latest News Reels';
+            let sectionDescription = 'Watch the latest short video news from popular channels — scroll down to explore.';
+
+            if (filterKey === 'telugu') {
+                pageTitleText = 'Telugu News';
+                sectionTitle = 'Telugu News Reels';
+                sectionDescription = 'Watch the latest Telugu short video news from popular TV channels — scroll down to explore.';
+            } else if (filterKey === 'hindi') {
+                pageTitleText = 'Hindi News';
+                sectionTitle = 'Hindi News Reels';
+                sectionDescription = 'Watch the latest Hindi short video news from popular TV channels — scroll down to explore.';
+            } else if (filterKey === 'english') {
+                pageTitleText = 'English News';
+                sectionTitle = 'English News Reels';
+                sectionDescription = 'Watch the latest English short video news from popular TV channels — scroll down to explore.';
+            }
+
+            document.getElementById('pageTitle').textContent = `TCWC • ${pageTitleText}`;
+
+            // Inject the News Page structure
+            const newsPageHTML = `
+                <div class="max-w-7xl mx-auto">
+                    <section class="text-center mt-6 px-4">
+                        <h1 class="text-3xl md:text-4xl font-extrabold text-brand mb-2">${sectionTitle}</h1>
+                        <p class="text-gray-600 max-w-lg mx-auto">${sectionDescription}</p>
+                    </section>
+
+                    <div id="chips" class="chip-container bg-white shadow-md mt-4 px-4 py-3 overflow-x-auto whitespace-nowrap border-b border-gray-200">
+                        <span class="chip" data-chip="all">All News</span>
+                        <span class="chip" data-chip="telugu">Telugu</span>
+                        <span class="chip" data-chip="hindi">Hindi</span>
+                        <span class="chip" data-chip="english">English</span>
+                        <span class="chip" data-chip="international">International</span>
+                        <span class="chip" data-chip="congress">Politics</span>
+                    </div>
+
+                    <main class="flex justify-center mt-4">
+                        <div id="videoGrid" class="shorts-container">
+                            </div>
+                    </main>
+                </div>
+            `;
+
+            pageContent.innerHTML = newsPageHTML;
+
+            // Reinitialize chip styling and event listeners
+            const chipsContainer = document.getElementById('chips');
+            if (chipsContainer) {
+                // No need to add classes here, they are in CSS
+                // Set initial active chip
+                setActiveChip(filterKey);
+
+                // Reattach chip click listener
+                chipsContainer.addEventListener('click', e => {
+                    const chip = e.target.closest('.chip');
+                    if (!chip) return;
+                    setActiveChip(chip.dataset.chip);
+                    renderVideos(chip.dataset.chip);
+                });
+            }
+
+            renderVideos(filterKey);
+        }
+
+        // Renders the main content for static pages
+        function renderStaticPage(pageId) {
+            stopAllVideosGlobal();
+
+            let title = '';
+            let htmlContent = '';
+
+            if (pageId === 'about-us') {
+                title = 'About Us';
+                htmlContent = `
+                    <div class="max-w-3xl mx-auto p-8 my-10 bg-white rounded-xl shadow-xl">
+                        <h1 class="text-4xl font-bold mb-6 text-text-dark border-b pb-2 border-brand">About TCWC-NEWS</h1>
+                        <p class="text-lg text-text-muted mb-4">
+                            TCWC-NEWS is your premier source for fast, reliable, and immersive video news content, focusing on regional
+                            and international current affairs. Our mission is to deliver information in a digestible, mobile-friendly format,
+                            allowing you to stay informed on the go.
+                        </p>
+                        <p class="text-lg text-text-muted mb-4">
+                            We curate top news feeds from trusted sources across Telugu, Hindi, and English languages, providing a comprehensive
+                            view of political, social, and global events.
+                        </p>
+                        <div class="mt-8">
+                            <h2 class="text-2xl font-semibold text-text-dark mb-3">Our Core Values</h2>
+                            <ul class="list-disc list-inside space-y-2 text-lg text-text-muted pl-4">
+                                <li>Immediacy and Reliability</li>
+                                <li>Regional Diversity</li>
+                                <li>Unbiased Video Curation</li>
+                                <li>Mobile-First Experience</li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            } else if (pageId === 'contact-us') {
+                title = 'Contact Us';
+                htmlContent = `
+                    <div class="max-w-3xl mx-auto p-8 my-10 bg-white rounded-xl shadow-xl">
+                        <h1 class="text-4xl font-bold mb-6 text-text-dark border-b pb-2 border-brand">Get in Touch</h1>
+                        <p class="text-lg text-text-muted mb-6">
+                            We value your feedback and inquiries. Please use the contact methods below to reach out to the appropriate team.
+                        </p>
+
+                        <div class="space-y-6">
+                            <div class="flex items-center space-x-4">
+                                <i class="fa-solid fa-envelope text-brand text-2xl"></i>
+                                <div>
+                                    <h3 class="font-semibold text-text-dark">Editorial Inquiries</h3>
+                                    <p class="text-text-muted">editor@tcwc-news.com</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center space-x-4">
+                                <i class="fa-solid fa-phone text-brand text-2xl"></i>
+                                <div>
+                                    <h3 class="font-semibold text-text-dark">Support Hotline</h3>
+                                    <p class="text-text-muted">+91 123 456 7890 (M-F, 9am - 5pm IST)</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center space-x-4">
+                                <i class="fa-solid fa-location-dot text-brand text-2xl"></i>
+                                <div>
+                                    <h3 class="font-semibold text-text-dark">Office Address</h3>
+                                    <p class="text-text-muted">Digital Media Center, Plot No 42, New Delhi, India</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <form class="mt-10 space-y-4">
+                            <h2 class="text-2xl font-semibold text-text-dark">Send a Message</h2>
+                            <input type="text" placeholder="Your Name" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-brand focus:border-brand">
+                            <input type="email" placeholder="Your Email" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-brand focus:border-brand">
+                            <textarea placeholder="Your Message" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-brand focus:border-brand"></textarea>
+                            <button type="submit" class="bg-brand text-white font-bold py-3 px-6 rounded-lg hover:bg-red-700 transition duration-300">Submit Inquiry</button>
+                        </form>
+                    </div>
+                `;
+            }
+
+            document.getElementById('pageTitle').textContent = `TCWC • ${title}`;
+            pageContent.innerHTML = htmlContent;
+        }
+
+
+        // Main router function
+        function renderPage(pageId) {
+            setActiveNavLink(pageId);
+
+            if (pageId.endsWith('-news') || pageId === 'all-news') {
+                const filterKey = pageId.replace('-news', '').replace('all', 'all');
+                renderNewsPage(filterKey);
+            } else if (pageId === 'about-us' || pageId === 'contact-us') {
+                renderStaticPage(pageId);
+            }
+        }
+
+        // --- VIDEO RENDERING (FULL SHORTS LAYOUT) ---
+
+        function renderVideos(filter = "all") {
+            const videoGrid = document.getElementById("videoGrid");
+            if (!videoGrid) return;
+
+            videoGrid.innerHTML = "";
+            stopAllVideosGlobal();
+
+            let videosToRender = [];
+            if (filter === "all") {
+                videosToRender = allVideos;
+            } else if (videos[filter]) {
+                videosToRender = videos[filter];
+            } else {
+                videosToRender = videos[filter] || [];
+            }
+
+            videosToRender.forEach(v => {
+                const vid = getVideoId(v.src);
+                const thumbUrl = `https://img.youtube.com/vi/${vid}/hqdefault.jpg`;
+                const placeholderUrl = 'https://placehold.co/600x1067/1f2937/f9fafb?text=News+Short';
+
+                const card = document.createElement("div");
+                card.className = "shorts-card";
+
+                card.innerHTML = `
+                    <div class="shorts-thumb relative w-full" data-src="${v.src}" data-title="${v.title}">
+                        <img src="${thumbUrl}" alt="${v.title}" onerror="this.onerror=null; this.src='${placeholderUrl}'" class="w-full h-full object-cover">
+                        <div class="play-overlay">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="shorts-info p-4"> <div class="font-bold text-text-dark text-lg line-clamp-2">${v.title}</div>
+                        <div class="text-text-muted text-sm mt-1">${v.meta || 'News Report'}</div>
+                    </div>
+                `;
+
+                videoGrid.appendChild(card);
+            });
+
+            // 2. Setup Intersection Observer for auto-play
+            setupIntersectionObserver();
+
+            // 3. Reattach manual click listeners (for non-auto-play trigger)
+            document.querySelectorAll(".shorts-thumb").forEach(thumb => {
+                thumb.addEventListener("click", () => {
+                    playVideo(thumb);
+                });
+            });
+        }
+
+        // Chip styling/activation utility
+        function setActiveChip(key) {
+            document.querySelectorAll('.chip').forEach(c => {
+                c.classList.remove('active'); // Remove active from all
+                if (c.dataset.chip === key) {
+                    c.classList.add('active'); // Add active to the current one
+                }
+            });
+        }
+
+        // --- INITIALIZATION AND ROUTING SETUP ---
+
+        // Set up navigation event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('header').addEventListener('click', e => {
+                const link = e.target.closest('a[data-page]');
+                if (link) {
+                    e.preventDefault();
+                    const pageId = link.dataset.page;
+                    renderPage(pageId);
+                }
+            });
+
+            document.querySelector('footer').addEventListener('click', e => {
+                const link = e.target.closest('a[data-page]');
+                if (link) {
+                    e.preventDefault();
+                    const pageId = link.dataset.page;
+                    renderPage(pageId);
+                }
+            });
+
+            // Default route on load: 'all-news'
+            renderPage('all-news');
+        });
+    </script>
 </body>
+
 </html>
