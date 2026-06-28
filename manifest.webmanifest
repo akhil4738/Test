@@ -1,0 +1,10 @@
+{
+  "name": "Akhil Developer Portfolio",
+  "short_name": "Akhil.in",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#090d16",
+  "theme_color": "#0b1020",
+  "description": "Interactive developer portfolio for Akhil.",
+  "icons": []
+}
