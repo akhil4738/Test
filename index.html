@@ -1,671 +1,79 @@
-<!DOCTYPE html>
-<html lang="en-IN">
-
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title id="pageTitle">TCWC • News Shorts Feed</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
-
-    <script>
-        // Tailwind Configuration
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: '#FF0033', // Primary brand red
-                        'text-dark': '#1f2937',
-                        'text-muted': '#6b7280',
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        /* Custom styles integrated from your latest layout */
-        body {
-            background-color: #f9fafb;
-            font-family: 'Inter', sans-serif;
-            color: #1f2937;
-        }
-
-        .nav-link.active {
-            color: #FF0033;
-            border-bottom: 2px solid #FF0033;
-        }
-
-        .nav-link:hover {
-            color: #FF0033;
-            transition: 0.3s;
-        }
-
-        /* Hide scrollbar for chips/navigation bar */
-        .chip-container::-webkit-scrollbar {
-            display: none;
-        }
-
-        .chip-container {
-            -ms-overflow-style: none;
-            /* IE and Edge */
-            scrollbar-width: none;
-            /* Firefox */
-        }
-
-        /* Chip default styling */
-        .chip {
-            display: inline-block;
-            padding: 8px 16px;
-            border-radius: 9999px;
-            margin-right: 8px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: all 0.15s ease-in-out;
-            background-color: #e5e7eb; /* bg-gray-200 */
-            color: #1f2937; /* text-text-dark */
-            cursor: pointer;
-        }
-
-        .chip:hover {
-            background-color: #d1d5db; /* hover:bg-gray-300 */
-        }
-
-        /* Chip active state styling */
-        .chip.active {
-            background-color: #1f2937; /* bg-gray-900 */
-            color: #ffffff; /* text-white */
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
-        }
-
-        /* --- VERTICAL SHORTS FEED STYLES --- */
-
-        /* Container for the scrollable shorts view */
-        .shorts-container {
-            display: flex;
-            flex-direction: column;
-            /* Adjusted height based on your latest suggestion (180px for header + footer area) */
-            height: calc(100vh - 180px);
-            overflow-y: scroll;
-            scroll-snap-type: y mandatory;
-            max-width: 450px;
-            margin: 0 auto;
-            padding-bottom: 2rem;
-        }
-
-        /* Individual Card in the Shorts Feed */
-        .shorts-card {
-            scroll-snap-align: start;
-            background: #fff;
-            margin: 15px 0;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-            transition: transform 0.2s ease;
-            min-height: calc(100% - 30px);
-            /* Fill most of the viewport section */
-            flex-shrink: 0;
-        }
-
-        .shorts-card:hover {
-            transform: translateY(-5px);
-        }
-
-        /* Video/Thumbnail Area */
-        .shorts-thumb {
-            position: relative;
-            width: 100%;
-            min-height: 250px;
-            flex-grow: 1;
-            /* Allows it to take up available height */
-            cursor: pointer;
-        }
-
-        .shorts-thumb img,
-        .shorts-thumb iframe {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            top: 0;
-            left: 0;
-        }
-
-        /* Play overlay */
-        .play-overlay {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 3rem;
-            z-index: 10;
-            pointer-events: none;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Akhil.in | Developer Portfolio</title>
+  <meta name="description" content="Akhil's interactive developer portfolio with projects, skills, achievements, testimonials, resume preview, and contact details.">
+  <meta name="theme-color" content="#0b1020">
+  <meta property="og:title" content="Akhil.in | Developer Portfolio">
+  <meta property="og:description" content="Python Developer, Java Full Stack Developer, Technical Trainer, Flask Developer, and AI Enthusiast.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="manifest" href="manifest.webmanifest">
+  <style>
+    :root{color-scheme:dark;--bg:#090d16;--bg2:#101827;--panel:rgba(255,255,255,.08);--panel2:rgba(255,255,255,.14);--text:#f6f8ff;--muted:#aeb7c8;--line:rgba(255,255,255,.18);--primary:#56d7c6;--blue:#7c9cff;--accent:#ffbf69;--hot:#ff6b8b;--ok:#61e394;--shadow:0 24px 90px rgba(0,0,0,.36);--radius:8px;--max:1180px}body[data-theme=light]{color-scheme:light;--bg:#f7f4ee;--bg2:#e8edf4;--panel:rgba(255,255,255,.74);--panel2:rgba(255,255,255,.92);--text:#111827;--muted:#526071;--line:rgba(22,30,46,.14);--primary:#007d73;--blue:#315ec7;--accent:#b35c00;--hot:#c93162;--ok:#147a43;--shadow:0 22px 70px rgba(59,66,92,.16)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden;transition:background .45s,color .45s}body.palette-secret{--primary:#d7ff63;--blue:#ff7ad9;--accent:#6de3ff;--hot:#ff7f50}a{color:inherit;text-decoration:none}button,input,textarea{font:inherit}button{cursor:pointer}:focus-visible{outline:3px solid var(--accent);outline-offset:4px}#loader{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:radial-gradient(circle at 25% 25%,rgba(86,215,198,.24),transparent 30%),radial-gradient(circle at 75% 65%,rgba(124,156,255,.2),transparent 32%),#05070d;transition:opacity .7s,visibility .7s}#loader.done{opacity:0;visibility:hidden}.loader-shell{width:min(560px,calc(100vw - 40px));padding:34px;border:1px solid rgba(255,255,255,.18);background:rgba(8,13,24,.72);box-shadow:var(--shadow);border-radius:var(--radius);position:relative;overflow:hidden}.loader-shell:before{content:"";position:absolute;inset:-80px;background:conic-gradient(from 90deg,transparent,rgba(86,215,198,.28),transparent,rgba(255,191,105,.24),transparent);animation:spin 4s linear infinite}.loader-inner{position:relative;background:rgba(5,8,15,.78);padding:26px;border-radius:var(--radius)}.loader-logo{font-size:clamp(2rem,8vw,4.8rem);font-weight:900}.terminal-line{color:#99f6e4;min-height:1.4em;margin:18px 0;font-family:Consolas,monospace}.bar{height:12px;border:1px solid rgba(255,255,255,.22);overflow:hidden;border-radius:999px}.bar span{display:block;width:var(--load,0%);height:100%;background:linear-gradient(90deg,var(--primary),var(--accent),var(--blue))}.percent{margin-top:12px;color:#dce6ff;display:flex;justify-content:space-between}.bg-canvas,.trail-canvas{position:fixed;inset:0;pointer-events:none}.bg-canvas{z-index:-2}.trail-canvas{z-index:30;mix-blend-mode:screen}.aurora{position:fixed;inset:-15%;z-index:-3;pointer-events:none;background:radial-gradient(circle at 20% 30%,rgba(86,215,198,.28),transparent 30%),radial-gradient(circle at 80% 20%,rgba(124,156,255,.24),transparent 28%),radial-gradient(circle at 55% 85%,rgba(255,191,105,.18),transparent 30%);filter:blur(36px);animation:drift 14s ease-in-out infinite alternate}.cursor{position:fixed;width:22px;height:22px;border:1px solid var(--primary);border-radius:50%;pointer-events:none;z-index:50;transform:translate(-50%,-50%);transition:.18s}.cursor.active{width:54px;height:54px;background:rgba(86,215,198,.1);border-color:var(--accent)}header{position:sticky;top:0;z-index:20;backdrop-filter:blur(18px);background:color-mix(in srgb,var(--bg) 78%,transparent);border-bottom:1px solid var(--line)}.nav{max-width:var(--max);margin:auto;min-height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;gap:18px}.brand{font-weight:900;font-size:1.1rem}.brand span{color:var(--primary)}.nav-links{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}.nav-links a,.icon-btn,.pill-btn{min-height:42px;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:var(--radius);display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:0 14px;transition:transform .2s,background .2s,border-color .2s}.nav-links a:hover,.icon-btn:hover,.pill-btn:hover{transform:translateY(-2px);border-color:var(--primary);background:var(--panel2)}.icon-btn{width:42px;padding:0}.theme-toggle{min-width:116px}section{padding:92px 22px}.wrap{max-width:var(--max);margin:auto}.section-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:28px}.eyebrow{color:var(--primary);text-transform:uppercase;font-weight:800;font-size:.78rem;letter-spacing:.14em}h1,h2,h3{margin:0;letter-spacing:0;line-height:1.04}h1{font-size:clamp(3.2rem,9vw,8.6rem);max-width:930px}h2{font-size:clamp(2rem,5vw,4.6rem)}h3{font-size:clamp(1.15rem,2vw,1.7rem)}p{color:var(--muted);line-height:1.7}.hero{min-height:calc(100vh - 70px);display:grid;align-items:center;padding-top:56px;padding-bottom:56px}.hero-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);gap:34px;align-items:center}.live-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px}.status{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:10px 14px;display:inline-flex;gap:8px;align-items:center;color:var(--text)}.dot{width:10px;height:10px;background:var(--ok);border-radius:50%;box-shadow:0 0 18px var(--ok)}.typing{min-height:38px;font-size:clamp(1.1rem,3vw,2rem);color:var(--primary);font-weight:800;margin-top:18px}.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}.primary{background:linear-gradient(120deg,var(--primary),var(--blue));color:#071018;border:0;font-weight:900}.hero-visual{min-height:520px;border:1px solid var(--line);background:linear-gradient(145deg,rgba(86,215,198,.14),rgba(124,156,255,.08)),var(--panel);border-radius:var(--radius);position:relative;overflow:hidden;box-shadow:var(--shadow)}.code-card{position:absolute;left:8%;top:10%;right:8%;padding:18px;border:1px solid var(--line);background:rgba(5,8,15,.78);border-radius:var(--radius);font-family:Consolas,monospace;color:#d7e4ff;transform:rotate(-2deg)}.profile-orbit{position:absolute;width:260px;height:260px;left:50%;bottom:54px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle at 45% 35%,#f9d7b6 0 18%,#142238 19% 28%,transparent 29%),radial-gradient(circle at center,rgba(86,215,198,.16),rgba(124,156,255,.1) 48%,transparent 49%),conic-gradient(var(--primary),var(--accent),var(--blue),var(--hot),var(--primary));box-shadow:0 0 80px rgba(86,215,198,.28);animation:pulse 4s ease-in-out infinite}.profile-orbit:after{content:"AK";position:absolute;inset:28px;display:grid;place-items:center;border-radius:50%;background:linear-gradient(145deg,#121b2b,#26364f);color:#fff;font-size:5rem;font-weight:900}.floating-stat{position:absolute;border:1px solid var(--line);background:rgba(255,255,255,.1);backdrop-filter:blur(16px);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow)}.floating-stat strong{display:block;font-size:1.65rem}.s1{left:8%;bottom:28%}.s2{right:8%;bottom:15%}.grid{display:grid;gap:18px}.grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}.card{border:1px solid var(--line);background:var(--panel);border-radius:var(--radius);padding:22px;box-shadow:0 12px 34px rgba(0,0,0,.12);transform-style:preserve-3d;transition:transform .16s,border-color .2s,background .2s}.card:hover{border-color:color-mix(in srgb,var(--primary) 72%,var(--line));background:var(--panel2)}.metric strong{display:block;font-size:clamp(2rem,4vw,3.6rem);color:var(--text);line-height:1}.carousel{overflow:hidden;border-block:1px solid var(--line);background:color-mix(in srgb,var(--panel) 70%,transparent)}.track{display:flex;width:max-content;animation:marquee 24s linear infinite}.tech{padding:22px 34px;min-width:150px;display:grid;place-items:center;font-weight:900}.filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px}.filter.active{background:var(--primary);color:#071018;border-color:transparent;font-weight:900}.project{display:grid;grid-template-columns:minmax(260px,.9fr) minmax(0,1.1fr);gap:22px;align-items:stretch}.shot{min-height:280px;border-radius:var(--radius);border:1px solid var(--line);position:relative;overflow:hidden;background:linear-gradient(120deg,rgba(255,255,255,.16),transparent 30%),radial-gradient(circle at 30% 30%,var(--primary),transparent 30%),radial-gradient(circle at 70% 70%,var(--blue),transparent 34%),#111827}.shot:before{content:"";position:absolute;inset:26px;border:1px solid rgba(255,255,255,.2);border-radius:var(--radius);background:linear-gradient(rgba(255,255,255,.18),rgba(255,255,255,.18)) 24px 32px/52% 12px no-repeat,linear-gradient(rgba(255,255,255,.12),rgba(255,255,255,.12)) 24px 62px/70% 8px no-repeat,linear-gradient(90deg,rgba(255,255,255,.2),rgba(255,255,255,.06)) 24px 108px/calc(100% - 48px) 86px no-repeat,rgba(0,0,0,.2)}.tags{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.tag{border:1px solid var(--line);color:var(--muted);padding:6px 9px;border-radius:999px;font-size:.86rem}.project-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.skills-layout{display:grid;grid-template-columns:minmax(260px,.8fr) minmax(0,1.2fr);gap:22px;align-items:center}.radar-wrap{display:grid;place-items:center;min-height:380px}#radar{max-width:100%;width:360px;height:360px}.skill-bars{display:grid;gap:16px}.skill-bar label{display:flex;justify-content:space-between;color:var(--text);margin-bottom:8px}.meter{height:10px;border:1px solid var(--line);border-radius:999px;overflow:hidden}.meter span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--accent));transition:width 1.2s}.timeline{position:relative;padding-left:28px}.timeline:before{content:"";position:absolute;left:7px;top:0;width:2px;height:var(--timeline,0%);background:linear-gradient(var(--primary),var(--accent));transition:height 1.4s}.time-item{position:relative;margin-bottom:18px}.time-item:before{content:"";position:absolute;left:-27px;top:26px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--primary);box-shadow:0 0 24px var(--primary)}.testimonial-wrap{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;gap:12px;align-items:center}.testimonial{min-height:210px;display:grid;align-content:center;text-align:center}.stars{color:var(--accent);font-size:1.35rem}.contact-layout{display:grid;grid-template-columns:minmax(280px,.9fr) minmax(0,1.1fr);gap:22px}.map{min-height:360px;background:linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px) 0 0/38px 38px,linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px) 0 0/38px 38px,radial-gradient(circle at 62% 48%,var(--hot),transparent 12%),radial-gradient(circle at 42% 58%,var(--primary),transparent 18%),var(--panel);position:relative}.map:after{content:"Hyderabad, India";position:absolute;left:24px;bottom:24px;color:var(--text);font-weight:900}.form{display:grid;gap:12px}input,textarea{width:100%;border:1px solid var(--line);background:color-mix(in srgb,var(--panel) 70%,transparent);color:var(--text);border-radius:var(--radius);padding:14px}textarea{min-height:132px;resize:vertical}.modal,.palette,.assistant,.resume-analyzer{position:fixed;z-index:60;display:none}.modal.open,.palette.open,.assistant.open,.resume-analyzer.open{display:block}.modal{inset:0;background:rgba(0,0,0,.62);backdrop-filter:blur(14px);padding:22px}.modal-panel{max-width:940px;max-height:calc(100vh - 44px);overflow:auto;margin:auto;background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}.resume-page{min-height:620px;background:var(--panel2);border:1px solid var(--line);border-radius:var(--radius);padding:36px;margin-top:16px}.palette{left:50%;top:12%;transform:translateX(-50%);width:min(720px,calc(100vw - 28px));background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px}.command{width:100%;margin-bottom:10px}.command-list{display:grid;gap:8px}.command-list button{justify-content:flex-start}.assistant{right:22px;bottom:22px;width:min(360px,calc(100vw - 44px));background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}.chat-log{height:260px;overflow:auto;padding:14px;display:grid;gap:10px;align-content:start}.bubble{padding:10px 12px;border-radius:var(--radius);background:var(--panel);color:var(--text)}.bubble.user{background:color-mix(in srgb,var(--primary) 25%,var(--panel));justify-self:end}.quick-questions{display:flex;flex-wrap:wrap;gap:8px;padding:0 14px 14px}.chat-toggle,.analyzer-toggle{position:fixed;z-index:45;right:22px;width:56px;height:56px;border-radius:50%;border:0;background:linear-gradient(135deg,var(--primary),var(--hot));color:#071018;font-weight:900;box-shadow:var(--shadow)}.chat-toggle{bottom:22px}.analyzer-toggle{bottom:88px}.resume-analyzer{right:92px;bottom:88px;width:min(420px,calc(100vw - 44px));background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}.score{font-size:3rem;font-weight:900;color:var(--primary)}footer{border-top:1px solid var(--line);padding:32px 22px;background:color-mix(in srgb,var(--bg2) 84%,transparent)}.footer-grid{max-width:var(--max);margin:auto;display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.footer-grid div{border:1px solid var(--line);background:var(--panel);padding:14px;border-radius:var(--radius)}.reveal{opacity:0;transform:translateY(28px) scale(.98);filter:blur(8px);transition:opacity .7s,transform .7s,filter .7s}.reveal.visible{opacity:1;transform:none;filter:none}.konami-note{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(90px);z-index:80;transition:transform .35s;background:var(--bg2);border:1px solid var(--line);padding:14px 18px;border-radius:var(--radius);box-shadow:var(--shadow)}.konami-note.show{transform:translateX(-50%) translateY(0)}@keyframes spin{to{transform:rotate(360deg)}}@keyframes drift{to{transform:translate3d(4%,-3%,0) scale(1.08)}}@keyframes pulse{50%{transform:translateX(-50%) scale(1.04)}}@keyframes marquee{to{transform:translateX(-50%)}}@media(max-width:920px){.hero-grid,.project,.skills-layout,.contact-layout{grid-template-columns:1fr}.grid-4,.grid-3,.grid-2,.footer-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.nav{align-items:flex-start;padding-block:14px}.nav-links a{display:none}.hero-visual{min-height:440px}section{padding:72px 18px}}@media(max-width:560px){.grid-4,.grid-3,.grid-2,.footer-grid{grid-template-columns:1fr}.section-head{display:block}.testimonial-wrap{grid-template-columns:1fr}.hero-visual{min-height:380px}.profile-orbit{width:210px;height:210px}.floating-stat{display:none}.theme-toggle{min-width:92px}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}.cursor,.trail-canvas{display:none}}
+  </style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Akhil","url":"https://akhil.in","jobTitle":["Python Developer","Java Full Stack Developer","Technical Trainer"],"knowsAbout":["Python","Java","Flask","React","AI","Machine Learning"],"sameAs":["https://github.com/akhil","https://www.linkedin.com/in/akhil"]}</script>
 </head>
-
 <body>
-    <header class="sticky top-0 bg-white shadow-lg z-20">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center p-3">
-            <a href="#" class="text-2xl font-extrabold text-[#FF0033]" data-page="all-news" aria-label="TCWC News Home">TCWC-NEWS</a>
-            <nav class="flex space-x-4 font-semibold mt-2 md:mt-0">
-                <a href="#" class="nav-link" data-page="telugu-news" aria-label="View Telugu News">Telugu News</a>
-                <a href="#" class="nav-link" data-page="hindi-news" aria-label="View Hindi News">Hindi News</a>
-                <a href="#" class="nav-link" data-page="english-news" aria-label="View English News">English News</a>
-                <a href="#" class="nav-link" data-page="about-us" aria-label="Learn About Us">About Us</a>
-                <a href="#" class="nav-link" data-page="contact-us" aria-label="Contact Us">Contact Us</a>
-            </nav>
-        </div>
-    </header>
-
-    <div id="pageContent" class="min-h-screen">
-        </div>
-
-    <footer class="bg-gray-900 text-gray-300 mt-8 pt-10 pb-6">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8 px-6">
-            <div>
-                <h3 class="text-white font-bold text-xl mb-3">TCWC News</h3>
-                <p class="text-sm text-gray-400">Your trusted source for quick and reliable short video news in Telugu, Hindi, and English.</p>
-            </div>
-            <div>
-                <h4 class="text-white font-semibold mb-3">Quick Links</h4>
-                <ul class="space-y-2 text-sm">
-                    <li><a href="#" data-page="all-news" class="hover:text-brand" aria-label="Home">Home</a></li>
-                    <li><a href="#" data-page="about-us" class="hover:text-brand" aria-label="About Us">About Us</a></li>
-                    <li><a href="#" data-page="contact-us" class="hover:text-brand" aria-label="Contact Us">Contact Us</a></li>
-                    <li><a href="#" data-page="english-news" class="hover:text-brand" aria-label="English News">English News</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-white font-semibold mb-3">Follow Us</h4>
-                <div class="flex space-x-4 text-xl">
-                    <a href="#" class="hover:text-brand" aria-label="Follow us on Facebook"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="hover:text-brand" aria-label="Follow us on Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="hover:text-brand" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="hover:text-brand" aria-label="Subscribe to our YouTube channel"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="mt-8 text-center text-sm text-gray-500 border-t border-gray-700 pt-4">
-            © 2025 TCWC News. All Rights Reserved.
-        </div>
-    </footer>
-
-    <script>
-        // --- VIDEO DATA (Keep comprehensive data for all categories) ---
-        const telugu = [{
-            title: "LIVE Congress Party Focus On Jubilee Hills Bypoll CM Revanth Reddy PCC Chief Mahesh  V6 News",
-            meta: "Telugu • Congress news",
-            src: "https://www.youtube.com/embed/w7Z9C7jN2TY"
-        }, {
-            title: "CM Revanth Extends Condolences on Congress Former Minister Damodar Reddy’s Passing | V6 News",
-            meta: "Telugu • Congress news",
-            src: "https://www.youtube.com/embed/zPTfVxo09ps"
-        }, {
-            title: "CM Revanth Reddy Urges Hyderabad Residents & People’s Representatives to Support Musi Rejuvenation",
-            meta: "Telugu • Congress news",
-            src: "https://www.youtube.com/embed/soat3Sy4hYE"
-        }, {
-            title: "CM Revanth Reddy Calls on Newly Recruited Group-1 Officers to Rebuild Telangana | Koluvula Panduga",
-            meta: "Telugu • Telagana CMO",
-            src: "https://www.youtube.com/embed/aAG9FZOKPfU"
-        }, {
-            title: "Sakshi TV — Live Debate",
-            meta: "Telugu • Political Talk",
-            src: "https://www.youtube.com/embed/9kCcUipLPJM"
-        }, ];
-
-        const hindi = [{
-            title: "India TV — Breaking News",
-            meta: "Hindi • Live Updates",
-            src: "https://www.youtube.com/embed/Xmm3Kr5P1Uw"
-        }, {
-            title: "TV9 Bharatvarsh — Special Report",
-            meta: "Hindi • War Coverage",
-            src: "https://www.youtube.com/embed/nSpwwcHVp80"
-        }, {
-            title: "ABP News — Latest Headlines",
-            meta: "Hindi • Top Stories",
-            src: "https://www.youtube.com/embed/nyd-xznCpJc"
-        }, {
-            title: "DD News — National Broadcast",
-            meta: "Hindi • Government News",
-            src: "https://www.youtube.com/embed/cSQ7egiOTaA"
-        }, ];
-
-        const english = [{
-            title: "NDTV 24x7 — Global Watch",
-            meta: "English • International News",
-            src: "https://www.youtube.com/embed/uoK1dFpMo98"
-        }, ];
-
-        const international = [{
-            title: "Al Jazeera English — World Report",
-            meta: "International • Analysis",
-            src: "https://www.youtube.com/embed/gCNeDWCI0vo"
-        }, {
-            title: "DW News — Europe Today",
-            meta: "International • German Perspective",
-            src: "https://www.youtube.com/embed/LuKwFajn37U"
-        }, {
-            title: "France 24 — French Headlines",
-            meta: "International • Global Events",
-            src: "https://www.youtube.com/embed/Ap-UM1O9RBU"
-        }, {
-            title: "DD India — India's Global Voice",
-            meta: "International • Diplomatic News",
-            src: "https://www.youtube.com/embed/5OELrhIb3q0"
-        }, ];
-
-        const congress = [{
-            title: "Voter Adhikar Yatra | West Champaran | Bihar",
-            meta: "Politics • Live Speech", // Added meta for consistency
-            src: "https://www.youtube.com/embed/DwpwEjs36js"
-        }, {
-            title: "Makhana: Superfood के पीछे का संघर्ष | Rahul Gandhi",
-            meta: "Politics • Documentary Short", // Added meta for consistency
-            src: "https://www.youtube.com/embed/mab_6OZEvos"
-        }, {
-            title: "Vote Chori 2024: देश का सबसे बड़ा चुनावी घोटाला",
-            meta: "Politics • Press Conference", // Added meta for consistency
-            src: "https://www.youtube.com/embed/-cc9wpgIYPc"
-        }, {
-            title: "Vote Chori के atom bomb सबूत | Press Conference",
-            meta: "Politics • Press Conference", // Added meta for consistency
-            src: "https://www.youtube.com/embed/nc6F4YFnG9c"
-        }];
-
-        const videos = {
-            telugu,
-            hindi,
-            english,
-            international,
-            congress
-        };
-
-        const allVideos = [...telugu, ...hindi, ...english, ...international, ...congress];
-        const pageContent = document.getElementById("pageContent");
-        let observer; // Global observer instance
-
-        // --- HELPER FUNCTIONS ---
-
-        function getVideoId(url) {
-            const match = url.match(/embed\/([^?]+)/);
-            return match ? match[1] : "";
-        }
-
-        // --- VIDEO CONTROL FUNCTIONS ---
-
-        // Replaces the thumbnail with the YouTube iframe and autoplays
-        function playVideo(thumbElement) {
-            if (thumbElement.querySelector('iframe')) return;
-
-            // Stops any currently playing video that isn't the current one
-            document.querySelectorAll('.shorts-thumb iframe').forEach(iframe => {
-                if (iframe.closest('.shorts-thumb') !== thumbElement) {
-                    stopVideo(iframe.closest('.shorts-thumb'));
-                }
-            });
-
-            // Note: The 'allow' attribute includes 'autoplay' to enable auto-playback.
-            const src = thumbElement.dataset.src + "?autoplay=1&rel=0&controls=1";
-            const title = thumbElement.dataset.title;
-
-            thumbElement.innerHTML = `
-                <iframe
-                src="${src}"
-                title="YouTube video player: ${title}"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
-                loading="lazy"
-                class="w-full h-full absolute top-0 left-0 z-50"
-                ></iframe>`;
-        }
-
-        // Stops a single video by replacing the iframe with the thumbnail
-        function stopVideo(thumbElement) {
-            const iframe = thumbElement.querySelector('iframe');
-            if (!iframe) return;
-
-            const src = thumbElement.dataset.src;
-            const title = thumbElement.dataset.title;
-            const vid = getVideoId(src);
-            const thumbUrl = `https://img.youtube.com/vi/${vid}/hqdefault.jpg`;
-            const placeholderUrl = 'https://placehold.co/600x1067/1f2937/f9fafb?text=News+Short';
-
-            thumbElement.innerHTML = `
-                <img src="${thumbUrl}" alt="${title}" onerror="this.onerror=null; this.src='${placeholderUrl}'" class="w-full h-full object-cover">
-                <div class="play-overlay">
-                    <i class="fa-solid fa-play"></i>
-                </div>
-            `;
-        }
-
-        // Global stop function (used when switching pages)
-        function stopAllVideosGlobal() {
-            if (observer) {
-                observer.disconnect();
-            }
-            document.querySelectorAll(".shorts-thumb").forEach(thumb => stopVideo(thumb));
-        }
-
-
-        // --- INTERSECTION OBSERVER SETUP ---
-
-        function setupIntersectionObserver() {
-            if (observer) {
-                observer.disconnect();
-            }
-
-            const shortsContainer = document.getElementById('videoGrid');
-            if (!shortsContainer) return;
-
-            const options = {
-                root: shortsContainer,
-                rootMargin: '0px',
-                threshold: 0.8 // Play when 80% of the card is visible
-            };
-
-            observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    const thumb = entry.target.querySelector('.shorts-thumb');
-                    if (!thumb) return;
-
-                    if (entry.isIntersecting) {
-                        playVideo(thumb);
-                    } else {
-                        stopVideo(thumb);
-                    }
-                });
-            }, options);
-
-            document.querySelectorAll('.shorts-card').forEach(card => {
-                observer.observe(card);
-            });
-        }
-
-        // --- PAGE RENDERING LOGIC (SPA Router) ---
-
-        // Sets the active class on the correct navigation link
-        function setActiveNavLink(pageId) {
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-
-            const mainLink = pageId.endsWith('-news') ? pageId.replace('-news', '') : pageId;
-            const activeLink = document.querySelector(`.nav-link[data-page="${mainLink}-news"], .nav-link[data-page="${mainLink}"]`);
-
-            if (activeLink) {
-                activeLink.classList.add('active');
-            } else if (pageId === 'all-news') {
-                // Highlight all news link if we filter to a sub-category via chip
-                document.querySelector('.nav-link[data-page="telugu-news"]').classList.remove('active');
-                document.querySelector('.nav-link[data-page="hindi-news"]').classList.remove('active');
-                document.querySelector('.nav-link[data-page="english-news"]').classList.remove('active');
-            }
-        }
-
-        // Renders the main content for a news page
-        function renderNewsPage(filterKey = 'all') {
-            stopAllVideosGlobal();
-
-            let pageTitleText = 'All News';
-            let sectionTitle = 'Latest News Reels';
-            let sectionDescription = 'Watch the latest short video news from popular channels — scroll down to explore.';
-
-            if (filterKey === 'telugu') {
-                pageTitleText = 'Telugu News';
-                sectionTitle = 'Telugu News Reels';
-                sectionDescription = 'Watch the latest Telugu short video news from popular TV channels — scroll down to explore.';
-            } else if (filterKey === 'hindi') {
-                pageTitleText = 'Hindi News';
-                sectionTitle = 'Hindi News Reels';
-                sectionDescription = 'Watch the latest Hindi short video news from popular TV channels — scroll down to explore.';
-            } else if (filterKey === 'english') {
-                pageTitleText = 'English News';
-                sectionTitle = 'English News Reels';
-                sectionDescription = 'Watch the latest English short video news from popular TV channels — scroll down to explore.';
-            }
-
-            document.getElementById('pageTitle').textContent = `TCWC • ${pageTitleText}`;
-
-            // Inject the News Page structure
-            const newsPageHTML = `
-                <div class="max-w-7xl mx-auto">
-                    <section class="text-center mt-6 px-4">
-                        <h1 class="text-3xl md:text-4xl font-extrabold text-brand mb-2">${sectionTitle}</h1>
-                        <p class="text-gray-600 max-w-lg mx-auto">${sectionDescription}</p>
-                    </section>
-
-                    <div id="chips" class="chip-container bg-white shadow-md mt-4 px-4 py-3 overflow-x-auto whitespace-nowrap border-b border-gray-200">
-                        <span class="chip" data-chip="all">All News</span>
-                        <span class="chip" data-chip="telugu">Telugu</span>
-                        <span class="chip" data-chip="hindi">Hindi</span>
-                        <span class="chip" data-chip="english">English</span>
-                        <span class="chip" data-chip="international">International</span>
-                        <span class="chip" data-chip="congress">Politics</span>
-                    </div>
-
-                    <main class="flex justify-center mt-4">
-                        <div id="videoGrid" class="shorts-container">
-                            </div>
-                    </main>
-                </div>
-            `;
-
-            pageContent.innerHTML = newsPageHTML;
-
-            // Reinitialize chip styling and event listeners
-            const chipsContainer = document.getElementById('chips');
-            if (chipsContainer) {
-                // No need to add classes here, they are in CSS
-                // Set initial active chip
-                setActiveChip(filterKey);
-
-                // Reattach chip click listener
-                chipsContainer.addEventListener('click', e => {
-                    const chip = e.target.closest('.chip');
-                    if (!chip) return;
-                    setActiveChip(chip.dataset.chip);
-                    renderVideos(chip.dataset.chip);
-                });
-            }
-
-            renderVideos(filterKey);
-        }
-
-        // Renders the main content for static pages
-        function renderStaticPage(pageId) {
-            stopAllVideosGlobal();
-
-            let title = '';
-            let htmlContent = '';
-
-            if (pageId === 'about-us') {
-                title = 'About Us';
-                htmlContent = `
-                    <div class="max-w-3xl mx-auto p-8 my-10 bg-white rounded-xl shadow-xl">
-                        <h1 class="text-4xl font-bold mb-6 text-text-dark border-b pb-2 border-brand">About TCWC-NEWS</h1>
-                        <p class="text-lg text-text-muted mb-4">
-                            TCWC-NEWS is your premier source for fast, reliable, and immersive video news content, focusing on regional
-                            and international current affairs. Our mission is to deliver information in a digestible, mobile-friendly format,
-                            allowing you to stay informed on the go.
-                        </p>
-                        <p class="text-lg text-text-muted mb-4">
-                            We curate top news feeds from trusted sources across Telugu, Hindi, and English languages, providing a comprehensive
-                            view of political, social, and global events.
-                        </p>
-                        <div class="mt-8">
-                            <h2 class="text-2xl font-semibold text-text-dark mb-3">Our Core Values</h2>
-                            <ul class="list-disc list-inside space-y-2 text-lg text-text-muted pl-4">
-                                <li>Immediacy and Reliability</li>
-                                <li>Regional Diversity</li>
-                                <li>Unbiased Video Curation</li>
-                                <li>Mobile-First Experience</li>
-                            </ul>
-                        </div>
-                    </div>
-                `;
-            } else if (pageId === 'contact-us') {
-                title = 'Contact Us';
-                htmlContent = `
-                    <div class="max-w-3xl mx-auto p-8 my-10 bg-white rounded-xl shadow-xl">
-                        <h1 class="text-4xl font-bold mb-6 text-text-dark border-b pb-2 border-brand">Get in Touch</h1>
-                        <p class="text-lg text-text-muted mb-6">
-                            We value your feedback and inquiries. Please use the contact methods below to reach out to the appropriate team.
-                        </p>
-
-                        <div class="space-y-6">
-                            <div class="flex items-center space-x-4">
-                                <i class="fa-solid fa-envelope text-brand text-2xl"></i>
-                                <div>
-                                    <h3 class="font-semibold text-text-dark">Editorial Inquiries</h3>
-                                    <p class="text-text-muted">editor@tcwc-news.com</p>
-                                </div>
-                            </div>
-
-                            <div class="flex items-center space-x-4">
-                                <i class="fa-solid fa-phone text-brand text-2xl"></i>
-                                <div>
-                                    <h3 class="font-semibold text-text-dark">Support Hotline</h3>
-                                    <p class="text-text-muted">+91 123 456 7890 (M-F, 9am - 5pm IST)</p>
-                                </div>
-                            </div>
-
-                            <div class="flex items-center space-x-4">
-                                <i class="fa-solid fa-location-dot text-brand text-2xl"></i>
-                                <div>
-                                    <h3 class="font-semibold text-text-dark">Office Address</h3>
-                                    <p class="text-text-muted">Digital Media Center, Plot No 42, New Delhi, India</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <form class="mt-10 space-y-4">
-                            <h2 class="text-2xl font-semibold text-text-dark">Send a Message</h2>
-                            <input type="text" placeholder="Your Name" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-brand focus:border-brand">
-                            <input type="email" placeholder="Your Email" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-brand focus:border-brand">
-                            <textarea placeholder="Your Message" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-brand focus:border-brand"></textarea>
-                            <button type="submit" class="bg-brand text-white font-bold py-3 px-6 rounded-lg hover:bg-red-700 transition duration-300">Submit Inquiry</button>
-                        </form>
-                    </div>
-                `;
-            }
-
-            document.getElementById('pageTitle').textContent = `TCWC • ${title}`;
-            pageContent.innerHTML = htmlContent;
-        }
-
-
-        // Main router function
-        function renderPage(pageId) {
-            setActiveNavLink(pageId);
-
-            if (pageId.endsWith('-news') || pageId === 'all-news') {
-                const filterKey = pageId.replace('-news', '').replace('all', 'all');
-                renderNewsPage(filterKey);
-            } else if (pageId === 'about-us' || pageId === 'contact-us') {
-                renderStaticPage(pageId);
-            }
-        }
-
-        // --- VIDEO RENDERING (FULL SHORTS LAYOUT) ---
-
-        function renderVideos(filter = "all") {
-            const videoGrid = document.getElementById("videoGrid");
-            if (!videoGrid) return;
-
-            videoGrid.innerHTML = "";
-            stopAllVideosGlobal();
-
-            let videosToRender = [];
-            if (filter === "all") {
-                videosToRender = allVideos;
-            } else if (videos[filter]) {
-                videosToRender = videos[filter];
-            } else {
-                videosToRender = videos[filter] || [];
-            }
-
-            videosToRender.forEach(v => {
-                const vid = getVideoId(v.src);
-                const thumbUrl = `https://img.youtube.com/vi/${vid}/hqdefault.jpg`;
-                const placeholderUrl = 'https://placehold.co/600x1067/1f2937/f9fafb?text=News+Short';
-
-                const card = document.createElement("div");
-                card.className = "shorts-card";
-
-                card.innerHTML = `
-                    <div class="shorts-thumb relative w-full" data-src="${v.src}" data-title="${v.title}">
-                        <img src="${thumbUrl}" alt="${v.title}" onerror="this.onerror=null; this.src='${placeholderUrl}'" class="w-full h-full object-cover">
-                        <div class="play-overlay">
-                            <i class="fa-solid fa-play"></i>
-                        </div>
-                    </div>
-                    <div class="shorts-info p-4"> <div class="font-bold text-text-dark text-lg line-clamp-2">${v.title}</div>
-                        <div class="text-text-muted text-sm mt-1">${v.meta || 'News Report'}</div>
-                    </div>
-                `;
-
-                videoGrid.appendChild(card);
-            });
-
-            // 2. Setup Intersection Observer for auto-play
-            setupIntersectionObserver();
-
-            // 3. Reattach manual click listeners (for non-auto-play trigger)
-            document.querySelectorAll(".shorts-thumb").forEach(thumb => {
-                thumb.addEventListener("click", () => {
-                    playVideo(thumb);
-                });
-            });
-        }
-
-        // Chip styling/activation utility
-        function setActiveChip(key) {
-            document.querySelectorAll('.chip').forEach(c => {
-                c.classList.remove('active'); // Remove active from all
-                if (c.dataset.chip === key) {
-                    c.classList.add('active'); // Add active to the current one
-                }
-            });
-        }
-
-        // --- INITIALIZATION AND ROUTING SETUP ---
-
-        // Set up navigation event listeners
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelector('header').addEventListener('click', e => {
-                const link = e.target.closest('a[data-page]');
-                if (link) {
-                    e.preventDefault();
-                    const pageId = link.dataset.page;
-                    renderPage(pageId);
-                }
-            });
-
-            document.querySelector('footer').addEventListener('click', e => {
-                const link = e.target.closest('a[data-page]');
-                if (link) {
-                    e.preventDefault();
-                    const pageId = link.dataset.page;
-                    renderPage(pageId);
-                }
-            });
-
-            // Default route on load: 'all-news'
-            renderPage('all-news');
-        });
-    </script>
+  <div id="loader" role="status" aria-live="polite"><div class="loader-shell"><div class="loader-inner"><div class="loader-logo">AKHIL.IN</div><div class="terminal-line" id="loaderText">Initializing Portfolio...</div><div class="bar" aria-hidden="true"><span id="loadBar"></span></div><div class="percent"><span>Loading Experience</span><strong id="loadNum">0%</strong></div></div></div></div>
+  <div class="aurora"></div><canvas class="bg-canvas" id="bgCanvas" aria-hidden="true"></canvas><canvas class="trail-canvas" id="trailCanvas" aria-hidden="true"></canvas><div class="cursor" id="cursor" aria-hidden="true"></div>
+  <header><nav class="nav" aria-label="Primary navigation"><a class="brand" href="#home">Akhil<span>.in</span></a><div class="nav-links"><a href="#projects">Projects</a><a href="#skills">Skills</a><a href="#experience">Experience</a><a href="#contact">Contact</a><button class="icon-btn" id="paletteBtn" aria-label="Open command palette" title="Command palette">K</button><button class="pill-btn theme-toggle" id="themeBtn" aria-label="Toggle color theme">Dark</button></div></nav></header>
+  <main id="home"><section class="hero"><div class="wrap hero-grid"><div class="hero-copy reveal"><div class="live-row"><span class="status"><span class="dot"></span> Available for Work</span><span class="status">Last Updated: Today</span><span class="status">Asia/Kolkata</span></div><p class="eyebrow">Python, Java, AI and technical training</p><h1>Developer portfolio built to feel alive.</h1><div class="typing" aria-label="Current role"><span id="typing"></span><span aria-hidden="true">|</span></div><p>Akhil builds practical software, teaches complex ideas clearly, and turns full-stack systems into smooth, recruiter-friendly product stories.</p><div class="hero-actions"><a class="pill-btn primary" href="#projects">View Projects</a><button class="pill-btn" data-modal="resume">View Resume</button><button class="pill-btn" id="downloadResume">Download Resume</button></div></div><div class="hero-visual reveal tilt"><div class="code-card"><div>const profile = {</div><div>&nbsp;&nbsp;role: "Full Stack Developer",</div><div>&nbsp;&nbsp;focus: ["Python", "Java", "AI"],</div><div>&nbsp;&nbsp;status: "available"</div><div>};</div></div><div class="profile-orbit" aria-hidden="true"></div><div class="floating-stat s1"><strong>7+</strong><span>Projects</span></div><div class="floating-stat s2"><strong>500+</strong><span>Students</span></div></div></div></section>
+  <section class="carousel" aria-label="Technology stack carousel"><div class="track"><span class="tech">Python</span><span class="tech">Java</span><span class="tech">Flask</span><span class="tech">React</span><span class="tech">MySQL</span><span class="tech">Git</span><span class="tech">Docker</span><span class="tech">Linux</span><span class="tech">TensorFlow</span><span class="tech">Firebase</span><span class="tech">Python</span><span class="tech">Java</span><span class="tech">Flask</span><span class="tech">React</span><span class="tech">MySQL</span><span class="tech">Git</span><span class="tech">Docker</span><span class="tech">Linux</span><span class="tech">TensorFlow</span><span class="tech">Firebase</span></div></section>
+  <section id="stats"><div class="wrap grid grid-4"><div class="card metric reveal tilt"><strong data-count="24">0</strong><span>GitHub repositories</span></div><div class="card metric reveal tilt"><strong data-count="1300">0</strong><span>Commits tracked</span></div><div class="card metric reveal tilt"><strong data-count="86">0</strong><span>Stars earned</span></div><div class="card metric reveal tilt"><strong data-count="9">0</strong><span>Languages used</span></div></div></section>
+  <section id="projects"><div class="wrap"><div class="section-head reveal"><div><p class="eyebrow">Apple-style project showcase</p><h2>Case studies with context.</h2></div><button class="pill-btn" data-modal="case">Open Featured Case Study</button></div><div class="filters reveal" role="tablist" aria-label="Project filters"><button class="pill-btn filter active" data-filter="all">All</button><button class="pill-btn filter" data-filter="python">Python</button><button class="pill-btn filter" data-filter="java">Java</button><button class="pill-btn filter" data-filter="ai">AI</button><button class="pill-btn filter" data-filter="flask">Flask</button><button class="pill-btn filter" data-filter="web">Web</button><button class="pill-btn filter" data-filter="research">Research</button></div><div class="grid" id="projectGrid"></div></div></section>
+  <section id="skills"><div class="wrap"><div class="section-head reveal"><div><p class="eyebrow">Interactive skill graph</p><h2>Depth you can scan.</h2></div></div><div class="skills-layout"><div class="card radar-wrap reveal tilt"><canvas id="radar" width="360" height="360" aria-label="Skill radar chart"></canvas></div><div class="card reveal tilt"><div class="skill-bars" id="skillBars"></div></div></div></div></section>
+  <section id="experience"><div class="wrap"><div class="section-head reveal"><div><p class="eyebrow">Timeline animation</p><h2>Experience and achievements.</h2></div></div><div class="grid grid-2"><div class="timeline reveal" id="timeline"><article class="card time-item tilt"><p class="eyebrow">2026</p><h3>Full Stack Developer</h3><p>Building Flask, Java, and React experiences with polished delivery and measurable outcomes.</p></article><article class="card time-item tilt"><p class="eyebrow">2025</p><h3>Technical Trainer</h3><p>Guided learners through Python, Java, databases, interview prep, and applied AI workflows.</p></article><article class="card time-item tilt"><p class="eyebrow">TG SET</p><h3>Qualified Educator</h3><p>Validated academic depth while continuing hands-on software and open-source practice.</p></article></div><div class="grid grid-2"><div class="card metric reveal tilt"><strong data-count="7">0</strong><span>Projects completed</span></div><div class="card metric reveal tilt"><strong data-count="500">0</strong><span>Students trained</span></div><div class="card metric reveal tilt"><strong data-count="3">0</strong><span>Years experience</span></div><div class="card metric reveal tilt"><strong data-count="1200">0</strong><span>Coding hours</span></div></div></div></div></section>
+  <section id="certificates"><div class="wrap"><div class="section-head reveal"><div><p class="eyebrow">Credentials</p><h2>Certificates with previews.</h2></div></div><div class="grid grid-3"><button class="card reveal tilt" data-cert="TG SET Qualified"><h3>TG SET Qualified</h3><p>Preview, credential ID, verify link, and download action.</p></button><button class="card reveal tilt" data-cert="Python Development"><h3>Python Development</h3><p>Practical Python, automation, Flask, and backend delivery.</p></button><button class="card reveal tilt" data-cert="Machine Learning"><h3>Machine Learning</h3><p>Data workflows, model evaluation, and AI application patterns.</p></button></div></div></section>
+  <section id="testimonials"><div class="wrap"><div class="section-head reveal"><div><p class="eyebrow">Testimonials</p><h2>Proof from learners and clients.</h2></div></div><div class="testimonial-wrap reveal"><button class="icon-btn" id="prevTest" aria-label="Previous testimonial">‹</button><div class="card testimonial" id="testimonial"></div><button class="icon-btn" id="nextTest" aria-label="Next testimonial">›</button></div></div></section>
+  <section id="blog"><div class="wrap"><div class="section-head reveal"><div><p class="eyebrow">Latest writing</p><h2>Articles recruiters can skim.</h2></div></div><div class="grid grid-3"><article class="card reveal tilt"><p class="eyebrow">Python</p><h3>Clean Flask project structure</h3><p>How to keep routes, services, templates, and tests readable as projects grow.</p></article><article class="card reveal tilt"><p class="eyebrow">AI</p><h3>Practical model evaluation</h3><p>Metrics, prompts, and human review patterns for useful AI features.</p></article><article class="card reveal tilt"><p class="eyebrow">Interview Tips</p><h3>Java full-stack checklist</h3><p>Core Java, SQL, APIs, frontend basics, deployment, and debugging habits.</p></article></div></div></section>
+  <section id="github"><div class="wrap"><div class="section-head reveal"><div><p class="eyebrow">GitHub contribution graph</p><h2>Recent coding rhythm.</h2></div></div><div class="card reveal tilt" id="contribGraph" aria-label="Contribution calendar"></div></div></section>
+  <section id="contact"><div class="wrap"><div class="section-head reveal"><div><p class="eyebrow">Contact</p><h2>Ready for useful work.</h2></div></div><div class="contact-layout"><div class="card map reveal tilt"></div><div class="card reveal tilt"><div class="grid grid-2"><p><strong>Email</strong><br>akhil@example.com</p><p><strong>WhatsApp</strong><br>Available on request</p><p><strong>LinkedIn</strong><br>linkedin.com/in/akhil</p><p><strong>GitHub</strong><br>github.com/akhil</p></div><form class="form" id="contactForm"><input aria-label="Your name" required placeholder="Your name"><input aria-label="Your email" required type="email" placeholder="Your email"><textarea aria-label="Message" required placeholder="Tell Akhil about the role, project, or training need"></textarea><button class="pill-btn primary" type="submit">Send Message</button></form></div></div></div></section></main>
+  <footer><div class="footer-grid"><div><strong id="clock">--:--</strong><br><span>Current time</span></div><div><strong id="visitors">1</strong><br><span>Visitor counter</span></div><div><strong>v2.6.0</strong><br><span>Portfolio version</span></div><div><strong>HTML CSS JS</strong><br><span>Built with</span></div><div><strong>Made by Akhil</strong><br><span>Last updated today</span></div></div></footer>
+  <div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="Command palette"><input class="command" id="commandInput" placeholder="Search projects, skills, certificates, or actions" aria-label="Command search"><div class="command-list" id="commandList"></div></div><div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Portfolio modal"><div class="modal-panel"><button class="icon-btn" id="closeModal" aria-label="Close modal">X</button><div id="modalBody"></div></div></div><button class="analyzer-toggle" id="analyzerBtn" aria-label="Open resume analyzer">ATS</button><aside class="resume-analyzer" id="analyzer" aria-label="AI resume analyzer"><h3>AI Resume Analyzer</h3><p>Upload simulation compares a resume against Akhil's profile.</p><input type="file" id="resumeUpload" aria-label="Upload resume"><div id="analysisResult"><div class="score">92</div><p>Strong match for Python, Java, Flask, teaching, and AI keywords. Add Docker deployment outcomes for a higher ATS score.</p></div></aside><button class="chat-toggle" id="chatBtn" aria-label="Open AI assistant">AI</button><aside class="assistant" id="assistant" aria-label="AI chat assistant"><div class="chat-log" id="chatLog"><div class="bubble">Hi! Ask me about Akhil.</div></div><div class="quick-questions" id="quickQuestions"></div></aside><div class="konami-note" id="konamiNote">Developer mode unlocked. Secret theme enabled.</div>
+  <script>
+    const $=(q,r=document)=>r.querySelector(q),$$=(q,r=document)=>[...r.querySelectorAll(q)],body=document.body,prefersReduced=matchMedia('(prefers-reduced-motion: reduce)').matches;const projects=[{title:'AI Interview Coach',cats:['python','ai','web'],stack:['Python','Flask','NLP','SQLite'],timeline:'8 weeks',desc:'A coaching app that scores answers, suggests keywords, and tracks readiness by role.',challenges:'Balancing useful AI feedback with plain, non-intimidating UX.',features:['Role-based mock interviews','Keyword scoring','Progress dashboard']},{title:'Campus ERP Lite',cats:['java','web'],stack:['Java','Spring','MySQL','React'],timeline:'10 weeks',desc:'A compact academic management system for students, attendance, and reports.',challenges:'Keeping data screens dense without making them visually heavy.',features:['Student records','Attendance reports','Role access']},{title:'Research Paper Finder',cats:['python','flask','research'],stack:['Flask','BeautifulSoup','PostgreSQL'],timeline:'5 weeks',desc:'A searchable research index with saved topics and exportable reading lists.',challenges:'Normalizing metadata from inconsistent academic sources.',features:['Topic search','Saved lists','Citation export']},{title:'Smart Expense Classifier',cats:['python','ai','machine-learning'],stack:['Python','Pandas','Scikit-learn'],timeline:'4 weeks',desc:'A lightweight ML tool that labels expenses and surfaces spending patterns.',challenges:'Making confidence and corrections clear for non-technical users.',features:['CSV import','Category predictions','Monthly insights']}];const skills=[['Python',94],['Java',88],['Flask',91],['React',82],['MySQL',86],['AI/ML',79],['Training',96]],testimonials=[{quote:'He is an outstanding trainer. Complex Python topics finally felt practical.',by:'Student'},{quote:'Excellent Python developer with a calm, precise way of solving product problems.',by:'Client'},{quote:'Akhil explains Java full-stack concepts with rare patience and structure.',by:'Workshop attendee'}];function initLoader(){const bar=$('#loadBar'),num=$('#loadNum'),text=$('#loaderText'),lines=['Initializing Portfolio...','Loading project systems...','Preparing animations...','Optimizing recruiter impact...','Loading Experience...'];let v=0;const timer=setInterval(()=>{v+=Math.ceil(Math.random()*12);if(v>=100)v=100;bar.style.setProperty('--load',v+'%');num.textContent=v+'%';text.textContent=lines[Math.min(lines.length-1,Math.floor(v/24))];if(v===100){clearInterval(timer);setTimeout(()=>$('#loader').classList.add('done'),450)}},prefersReduced?20:130)}function initTheme(){const saved=localStorage.getItem('akhil-theme')||'dark';body.dataset.theme=saved;$('#themeBtn').textContent=saved==='dark'?'Dark':'Light';$('#themeBtn').addEventListener('click',()=>{const n=body.dataset.theme==='dark'?'light':'dark';body.dataset.theme=n;localStorage.setItem('akhil-theme',n);$('#themeBtn').textContent=n==='dark'?'Dark':'Light'})}function initTyping(){const roles=['Python Developer','Java Full Stack Developer','Technical Trainer','Flask Developer','AI Enthusiast','TG SET Qualified','Open Source Contributor'];let r=0,i=0,d=false;const t=$('#typing');(function tick(){const w=roles[r];t.textContent=w.slice(0,i);if(!d&&i<w.length)i++;else if(!d)d=true;else if(i>0)i--;else{d=false;r=(r+1)%roles.length}setTimeout(tick,d?42:82)})()}function renderProjects(f='all'){const g=$('#projectGrid');g.innerHTML='';projects.filter(p=>f==='all'||p.cats.includes(f)).forEach((p,i)=>{const el=document.createElement('article');el.className='card project reveal tilt visible';el.innerHTML='<div class="shot" role="img" aria-label="'+p.title+' project screenshot mockup"></div><div><p class="eyebrow">'+p.timeline+'</p><h3>'+p.title+'</h3><p>'+p.desc+'</p><div class="tags">'+p.stack.map(s=>'<span class="tag">'+s+'</span>').join('')+'</div><p><strong>Challenge:</strong> '+p.challenges+'</p><p><strong>Features:</strong> '+p.features.join(', ')+'</p><div class="project-actions"><a class="pill-btn" href="https://github.com/akhil" target="_blank" rel="noreferrer">GitHub</a><button class="pill-btn" data-demo="'+i+'">Live Demo</button><button class="pill-btn primary" data-case="'+i+'">Case Study</button></div></div>';g.append(el)})}function initFilters(){$$('.filter').forEach(b=>b.addEventListener('click',()=>{$$('.filter').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderProjects(b.dataset.filter);initTilt()}))}function initSkills(){$('#skillBars').innerHTML=skills.map(([n,v])=>'<div class="skill-bar"><label><span>'+n+'</span><strong>'+v+'%</strong></label><div class="meter"><span data-width="'+v+'%"></span></div></div>').join('');drawRadar()}function drawRadar(){const c=$('#radar'),ctx=c.getContext('2d'),cx=180,cy=180,max=130;ctx.clearRect(0,0,360,360);ctx.lineWidth=1;for(let ring=1;ring<=5;ring++){ctx.beginPath();skills.forEach((_,i)=>{const a=-Math.PI/2+i*Math.PI*2/skills.length,r=max*ring/5,x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r;i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.closePath();ctx.strokeStyle='rgba(255,255,255,.14)';ctx.stroke()}ctx.beginPath();skills.forEach(([n,v],i)=>{const a=-Math.PI/2+i*Math.PI*2/skills.length,r=max*v/100,x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r;i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.closePath();ctx.fillStyle='rgba(86,215,198,.22)';ctx.fill();ctx.strokeStyle='#56d7c6';ctx.lineWidth=3;ctx.stroke();ctx.fillStyle=getComputedStyle(body).getPropertyValue('--text');ctx.font='700 13px Inter, sans-serif';skills.forEach(([n],i)=>{const a=-Math.PI/2+i*Math.PI*2/skills.length;ctx.fillText(n,cx+Math.cos(a)*150-22,cy+Math.sin(a)*150+4)})}function initReveal(){const o=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');e.target.querySelectorAll('.meter span').forEach(m=>m.style.width=m.dataset.width);e.target.querySelectorAll('[data-count]').forEach(countUp);if(e.target.id==='timeline')e.target.style.setProperty('--timeline','100%')}}),{threshold:.18});$$('.reveal,#timeline').forEach(el=>o.observe(el))}function countUp(el){if(el.dataset.done)return;el.dataset.done='1';const end=Number(el.dataset.count),s=performance.now();function step(t){const p=Math.min(1,(t-s)/1000);el.textContent=Math.floor(end*p)+(end>=100?'+':'');if(p<1)requestAnimationFrame(step)}requestAnimationFrame(step)}function initTilt(){if(prefersReduced)return;$$('.tilt').forEach(card=>{if(card.dataset.tiltReady)return;card.dataset.tiltReady='1';card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;card.style.transform='perspective(900px) rotateX('+(y*-7)+'deg) rotateY('+(x*9)+'deg) translateY(-2px)'});card.addEventListener('mouseleave',()=>card.style.transform='')})}function initBackground(){const canvas=$('#bgCanvas'),trail=$('#trailCanvas'),ctx=canvas.getContext('2d'),tctx=trail.getContext('2d');let w,h,mouse={x:0,y:0},sparks=[];const ps=Array.from({length:70},()=>({x:Math.random(),y:Math.random(),vx:(Math.random()-.5)*.0009,vy:(Math.random()-.5)*.0009}));function resize(){w=canvas.width=trail.width=innerWidth;h=canvas.height=trail.height=innerHeight}addEventListener('resize',resize);resize();addEventListener('pointermove',e=>{mouse={x:e.clientX,y:e.clientY};sparks.push({x:e.clientX,y:e.clientY,life:1,vx:(Math.random()-.5)*2,vy:(Math.random()-.5)*2})});function frame(){ctx.clearRect(0,0,w,h);ctx.fillStyle='rgba(255,255,255,.7)';ps.forEach((p,i)=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>1)p.vx*=-1;if(p.y<0||p.y>1)p.vy*=-1;const x=p.x*w,y=p.y*h;ctx.beginPath();ctx.arc(x,y,1.6,0,Math.PI*2);ctx.fill();ps.slice(i+1).forEach(q=>{const qx=q.x*w,qy=q.y*h,d=Math.hypot(x-qx,y-qy);if(d<130){ctx.strokeStyle='rgba(86,215,198,'+((130-d)/650)+')';ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(qx,qy);ctx.stroke()}});const md=Math.hypot(x-mouse.x,y-mouse.y);if(md<170){ctx.strokeStyle='rgba(255,191,105,'+((170-md)/420)+')';ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(mouse.x,mouse.y);ctx.stroke()}});tctx.fillStyle='rgba(0,0,0,.16)';tctx.fillRect(0,0,w,h);sparks.forEach(s=>{s.x+=s.vx;s.y+=s.vy;s.life-=.035;tctx.fillStyle='rgba(86,215,198,'+s.life+')';tctx.beginPath();tctx.arc(s.x,s.y,8*s.life,0,Math.PI*2);tctx.fill()});sparks=sparks.filter(s=>s.life>0);requestAnimationFrame(frame)}if(!prefersReduced)frame()}function initCursor(){const c=$('#cursor');addEventListener('pointermove',e=>{c.style.left=e.clientX+'px';c.style.top=e.clientY+'px'});document.addEventListener('mouseover',e=>{if(e.target.closest('a,button,.card,.shot,input,textarea'))c.classList.add('active')});document.addEventListener('mouseout',e=>{if(e.target.closest('a,button,.card,.shot,input,textarea'))c.classList.remove('active')})}function initModals(){const modal=$('#modal'),mb=$('#modalBody'),openModal=html=>{mb.innerHTML=html;modal.classList.add('open')},close=()=>modal.classList.remove('open');$('#closeModal').addEventListener('click',close);modal.addEventListener('click',e=>{if(e.target===modal)close()});document.addEventListener('click',e=>{const resume=e.target.closest('[data-modal="resume"]'),caseBtn=e.target.closest('[data-case],[data-modal="case"]'),cert=e.target.closest('[data-cert]');if(resume)openModal('<h2>Akhil Resume Preview</h2><div class="resume-page"><h3>Akhil</h3><p>Python Developer | Java Full Stack Developer | Technical Trainer | Flask Developer | AI Enthusiast</p><h3>Highlights</h3><p>TG SET Qualified, project-based trainer, full-stack builder, and open-source contributor.</p><h3>Skills</h3><p>Python, Java, Flask, React, MySQL, Git, Docker, Linux, TensorFlow, Firebase.</p><h3>Experience</h3><p>Built production-style web apps, trained students, and created applied AI workflows.</p></div>');if(caseBtn){const p=projects[Number(caseBtn.dataset.case||0)];openModal('<h2>'+p.title+'</h2><div class="shot" style="min-height:320px;margin:18px 0"></div><p>'+p.desc+'</p><p><strong>Timeline:</strong> '+p.timeline+'</p><p><strong>Challenge:</strong> '+p.challenges+'</p><p><strong>Stack:</strong> '+p.stack.join(', ')+'</p><p><strong>Features:</strong> '+p.features.join(', ')+'</p><div class="project-actions"><a class="pill-btn" href="https://github.com/akhil" target="_blank" rel="noreferrer">GitHub</a><button class="pill-btn primary">Live Demo</button></div>')}if(cert)openModal('<h2>'+cert.dataset.cert+'</h2><div class="resume-page"><h3>Certificate Preview</h3><p>Credential ID: AKHIL-'+Math.floor(Math.random()*9000+1000)+'</p><p>Verification link and downloadable certificate preview are ready to connect to real credential assets.</p><button class="pill-btn primary">Download Certificate</button></div>')});$('#downloadResume').addEventListener('click',()=>{const blob=new Blob(['Akhil Resume\nPython Developer | Java Full Stack Developer | Technical Trainer\nSkills: Python, Java, Flask, React, MySQL, AI/ML'],{type:'text/plain'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Akhil-Resume.txt';a.click();URL.revokeObjectURL(a.href)});window.closeModal=close}function initPalette(){const pal=$('#palette'),input=$('#commandInput'),list=$('#commandList'),cmds=[['Go Home','#home'],['Search Projects','#projects'],['Search Skills','#skills'],['Search Certificates','#certificates'],['Go Contact','#contact'],['Download Resume','download'],['Go GitHub','https://github.com/akhil']];function render(){const q=input.value.toLowerCase();list.innerHTML=cmds.filter(([n])=>n.toLowerCase().includes(q)).map(([n,a])=>'<button class="pill-btn" data-action="'+a+'">'+n+'</button>').join('')}function openPal(){pal.classList.add('open');render();setTimeout(()=>input.focus(),30)}function close(){pal.classList.remove('open')}$('#paletteBtn').addEventListener('click',openPal);input.addEventListener('input',render);list.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const a=b.dataset.action;close();if(a==='download')$('#downloadResume').click();else if(a.startsWith('http'))open(a,'_blank');else location.hash=a});addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openPal()}if(e.key==='Escape'){close();$('#modal').classList.remove('open');$('#assistant').classList.remove('open');$('#analyzer').classList.remove('open')}})}function initShortcuts(){addEventListener('keydown',e=>{if(e.target.matches('input, textarea')||e.ctrlKey||e.metaKey||e.altKey)return;const k=e.key.toLowerCase();if(k==='g')open('https://github.com/akhil','_blank');if(k==='r')$('[data-modal="resume"]').click();if(k==='p')location.hash='#projects';if(k==='c')location.hash='#contact'})}function initTestimonials(){let i=0;function render(){$('#testimonial').innerHTML='<div class="stars">★★★★★</div><h3>"'+testimonials[i].quote+'"</h3><p>'+testimonials[i].by+'</p>'}$('#prevTest').addEventListener('click',()=>{i=(i+testimonials.length-1)%testimonials.length;render()});$('#nextTest').addEventListener('click',()=>{i=(i+1)%testimonials.length;render()});setInterval(()=>{i=(i+1)%testimonials.length;render()},5000);render()}function initContrib(){const g=$('#contribGraph');g.style.display='grid';g.style.gridTemplateColumns='repeat(26,1fr)';g.style.gap='5px';g.innerHTML=Array.from({length:182},(_,i)=>{const l=(i*7+Math.floor(i/5))%5;return '<span title="'+l+' contributions" style="aspect-ratio:1;border-radius:4px;background:color-mix(in srgb,var(--primary) '+(l*18+8)+'%,var(--panel));border:1px solid var(--line)"></span>'}).join('')}function initAssistant(){const panel=$('#assistant'),log=$('#chatLog'),answers={'Who are you?':'Akhil is a developer and technical trainer focused on Python, Java full stack, Flask, and applied AI.','Projects?':'Featured projects include an AI Interview Coach, Campus ERP Lite, Research Paper Finder, and Smart Expense Classifier.','Skills?':'Core skills: Python, Java, Flask, React, MySQL, Git, Docker, Linux, TensorFlow, Firebase, and technical training.','Experience?':'Akhil combines project delivery, student training, TG SET qualification, and practical software development.','Resume?':'Use the View Resume button in the hero, or press R to open the resume preview.','Contact?':'Jump to the contact section or press C. Email, LinkedIn, GitHub, and WhatsApp touchpoints are listed there.'};$('#quickQuestions').innerHTML=Object.keys(answers).map(q=>'<button class="pill-btn">'+q+'</button>').join('');$('#chatBtn').addEventListener('click',()=>panel.classList.toggle('open'));$('#quickQuestions').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;log.insertAdjacentHTML('beforeend','<div class="bubble user">'+b.textContent+'</div><div class="bubble">'+answers[b.textContent]+'</div>');log.scrollTop=log.scrollHeight})}function initAnalyzer(){$('#analyzerBtn').addEventListener('click',()=>$('#analyzer').classList.toggle('open'));$('#resumeUpload').addEventListener('change',()=>{$('#analysisResult').innerHTML='<div class="score">95</div><p>Great match. Resume includes strong developer keywords. Add quantified project outcomes and live links for extra recruiter clarity.</p>'})}function initFooter(){const v=Number(localStorage.getItem('akhil-visitors')||0)+1;localStorage.setItem('akhil-visitors',v);$('#visitors').textContent=v;setInterval(()=>$('#clock').textContent=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}),1000)}function initEasterEgg(){console.info('Akhil.in developer mode: press the Konami code for the secret theme.');const code=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];let seq=[];addEventListener('keydown',e=>{seq.push(e.key);seq=seq.slice(-code.length);if(code.every((k,i)=>k===seq[i])){body.classList.toggle('palette-secret');$('#konamiNote').classList.add('show');setTimeout(()=>$('#konamiNote').classList.remove('show'),2800)}})}$('#contactForm').addEventListener('submit',e=>{e.preventDefault();e.currentTarget.reset();alert('Message drafted. Connect this form to EmailJS, Formspree, or your backend to send it live.')});initLoader();initTheme();initTyping();renderProjects();initFilters();initSkills();initReveal();initTilt();initBackground();initCursor();initModals();initPalette();initShortcuts();initTestimonials();initContrib();initAssistant();initAnalyzer();initFooter();initEasterEgg();if('serviceWorker'in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('sw.js');
+  </script>
 </body>
-
+</html><!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Akhil.in | Developer Portfolio</title>
+  <meta name="description" content="Akhil's interactive developer portfolio with projects, skills, achievements, testimonials, resume preview, and contact details.">
+  <meta name="theme-color" content="#0b1020">
+  <meta property="og:title" content="Akhil.in | Developer Portfolio">
+  <meta property="og:description" content="Python Developer, Java Full Stack Developer, Technical Trainer, Flask Developer, and AI Enthusiast.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="manifest" href="manifest.webmanifest">
+  <style>
+    :root{color-scheme:dark;--bg:#090d16;--bg2:#101827;--panel:rgba(255,255,255,.08);--panel2:rgba(255,255,255,.14);--text:#f6f8ff;--muted:#aeb7c8;--line:rgba(255,255,255,.18);--primary:#56d7c6;--blue:#7c9cff;--accent:#ffbf69;--hot:#ff6b8b;--ok:#61e394;--shadow:0 24px 90px rgba(0,0,0,.36);--radius:8px;--max:1180px}body[data-theme=light]{color-scheme:light;--bg:#f7f4ee;--bg2:#e8edf4;--panel:rgba(255,255,255,.74);--panel2:rgba(255,255,255,.92);--text:#111827;--muted:#526071;--line:rgba(22,30,46,.14);--primary:#007d73;--blue:#315ec7;--accent:#b35c00;--hot:#c93162;--ok:#147a43;--shadow:0 22px 70px rgba(59,66,92,.16)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden;transition:background .45s,color .45s}body.palette-secret{--primary:#d7ff63;--blue:#ff7ad9;--accent:#6de3ff;--hot:#ff7f50}a{color:inherit;text-decoration:none}button,input,textarea{font:inherit}button{cursor:pointer}:focus-visible{outline:3px solid var(--accent);outline-offset:4px}#loader{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:radial-gradient(circle at 25% 25%,rgba(86,215,198,.24),transparent 30%),radial-gradient(circle at 75% 65%,rgba(124,156,255,.2),transparent 32%),#05070d;transition:opacity .7s,visibility .7s}#loader.done{opacity:0;visibility:hidden}.loader-shell{width:min(560px,calc(100vw - 40px));padding:34px;border:1px solid rgba(255,255,255,.18);background:rgba(8,13,24,.72);box-shadow:var(--shadow);border-radius:var(--radius);position:relative;overflow:hidden}.loader-shell:before{content:"";position:absolute;inset:-80px;background:conic-gradient(from 90deg,transparent,rgba(86,215,198,.28),transparent,rgba(255,191,105,.24),transparent);animation:spin 4s linear infinite}.loader-inner{position:relative;background:rgba(5,8,15,.78);padding:26px;border-radius:var(--radius)}.loader-logo{font-size:clamp(2rem,8vw,4.8rem);font-weight:900}.terminal-line{color:#99f6e4;min-height:1.4em;margin:18px 0;font-family:Consolas,monospace}.bar{height:12px;border:1px solid rgba(255,255,255,.22);overflow:hidden;border-radius:999px}.bar span{display:block;width:var(--load,0%);height:100%;background:linear-gradient(90deg,var(--primary),var(--accent),var(--blue))}.percent{margin-top:12px;color:#dce6ff;display:flex;justify-content:space-between}.bg-canvas,.trail-canvas{position:fixed;inset:0;pointer-events:none}.bg-canvas{z-index:-2}.trail-canvas{z-index:30;mix-blend-mode:screen}.aurora{position:fixed;inset:-15%;z-index:-3;pointer-events:none;background:radial-gradient(circle at 20% 30%,rgba(86,215,198,.28),transparent 30%),radial-gradient(circle at 80% 20%,rgba(124,156,255,.24),transparent 28%),radial-gradient(circle at 55% 85%,rgba(255,191,105,.18),transparent 30%);filter:blur(36px);animation:drift 14s ease-in-out infinite alternate}.cursor{position:fixed;width:22px;height:22px;border:1px solid var(--primary);border-radius:50%;pointer-events:none;z-index:50;transform:translate(-50%,-50%);transition:.18s}.cursor.active{width:54px;height:54px;background:rgba(86,215,198,.1);border-color:var(--accent)}header{position:sticky;top:0;z-index:20;backdrop-filter:blur(18px);background:color-mix(in srgb,var(--bg) 78%,transparent);border-bottom:1px solid var(--line)}.nav{max-width:var(--max);margin:auto;min-height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;gap:18px}.brand{font-weight:900;font-size:1.1rem}.brand span{color:var(--primary)}.nav-links{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}.nav-links a,.icon-btn,.pill-btn{min-height:42px;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:var(--radius);display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:0 14px;transition:transform .2s,background .2s,border-color .2s}.nav-links a:hover,.icon-btn:hover,.pill-btn:hover{transform:translateY(-2px);border-color:var(--primary);background:var(--panel2)}.icon-btn{width:42px;padding:0}.theme-toggle{min-width:116px}section{padding:92px 22px}.wrap{max-width:var(--max);margin:auto}.section-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:28px}.eyebrow{color:var(--primary);text-transform:uppercase;font-weight:800;font-size:.78rem;letter-spacing:.14em}h1,h2,h3{margin:0;letter-spacing:0;line-height:1.04}h1{font-size:clamp(3.2rem,9vw,8.6rem);max-width:930px}h2{font-size:clamp(2rem,5vw,4.6rem)}h3{font-size:clamp(1.15rem,2vw,1.7rem)}p{color:var(--muted);line-height:1.7}.hero{min-height:calc(100vh - 70px);display:grid;align-items:center;padding-top:56px;padding-bottom:56px}.hero-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);gap:34px;align-items:center}.live-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px}.status{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:10px 14px;display:inline-flex;gap:8px;align-items:center;color:var(--text)}.dot{width:10px;height:10px;background:var(--ok);border-radius:50%;box-shadow:0 0 18px var(--ok)}.typing{min-height:38px;font-size:clamp(1.1rem,3vw,2rem);color:var(--primary);font-weight:800;margin-top:18px}.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}.primary{background:linear-gradient(120deg,var(--primary),var(--blue));color:#071018;border:0;font-weight:900}.hero-visual{min-height:520px;border:1px solid var(--line);background:linear-gradient(145deg,rgba(86,215,198,.14),rgba(124,156,255,.08)),var(--panel);border-radius:var(--radius);position:relative;overflow:hidden;box-shadow:var(--shadow)}.code-card{position:absolute;left:8%;top:10%;right:8%;padding:18px;border:1px solid var(--line);background:rgba(5,8,15,.78);border-radius:var(--radius);font-family:Consolas,monospace;color:#d7e4ff;transform:rotate(-2deg)}.profile-orbit{position:absolute;width:260px;height:260px;left:50%;bottom:54px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle at 45% 35%,#f9d7b6 0 18%,#142238 19% 28%,transparent 29%),radial-gradient(circle at center,rgba(86,215,198,.16),rgba(124,156,255,.1) 48%,transparent 49%),conic-gradient(var(--primary),var(--accent),var(--blue),var(--hot),var(--primary));box-shadow:0 0 80px rgba(86,215,198,.28);animation:pulse 4s ease-in-out infinite}.profile-orbit:after{content:"AK";position:absolute;inset:28px;display:grid;place-items:center;border-radius:50%;background:linear-gradient(145deg,#121b2b,#26364f);color:#fff;font-size:5rem;font-weight:900}.floating-stat{position:absolute;border:1px solid var(--line);background:rgba(255,255,255,.1);backdrop-filter:blur(16px);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow)}.floating-stat strong{display:block;font-size:1.65rem}.s1{left:8%;bottom:28%}.s2{right:8%;bottom:15%}.grid{display:grid;gap:18px}.grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}.card{border:1px solid var(--line);background:var(--panel);border-radius:var(--radius);padding:22px;box-shadow:0 12px 34px rgba(0,0,0,.12);transform-style:preserve-3d;transition:transform .16s,border-color .2s,background .2s}.card:hover{border-color:color-mix(in srgb,var(--primary) 72%,var(--line));background:var(--panel2)}.metric strong{display:block;font-size:clamp(2rem,4vw,3.6rem);color:var(--text);line-height:1}.carousel{overflow:hidden;border-block:1px solid var(--line);background:color-mix(in srgb,var(--panel) 70%,transparent)}.track{display:flex;width:max-content;animation:marquee 24s linear infinite}.tech{padding:22px 34px;min-width:150px;display:grid;place-items:center;font-weight:900}.filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px}.filter.active{background:var(--primary);color:#071018;border-color:transparent;font-weight:900}.project{display:grid;grid-template-columns:minmax(260px,.9fr) minmax(0,1.1fr);gap:22px;align-items:stretch}.shot{min-height:280px;border-radius:var(--radius);border:1px solid var(--line);position:relative;overflow:hidden;background:linear-gradient(120deg,rgba(255,255,255,.16),transparent 30%),radial-gradient(circle at 30% 30%,var(--primary),transparent 30%),radial-gradient(circle at 70% 70%,var(--blue),transparent 34%),#111827}.shot:before{content:"";position:absolute;inset:26px;border:1px solid rgba(255,255,255,.2);border-radius:var(--radius);background:linear-gradient(rgba(255,255,255,.18),rgba(255,255,255,.18)) 24px 32px/52% 12px no-repeat,linear-gradient(rgba(255,255,255,.12),rgba(255,255,255,.12)) 24px 62px/70% 8px no-repeat,linear-gradient(90deg,rgba(255,255,255,.2),rgba(255,255,255,.06)) 24px 108px/calc(100% - 48px) 86px no-repeat,rgba(0,0,0,.2)}.tags{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.tag{border:1px solid var(--line);color:var(--muted);padding:6px 9px;border-radius:999px;font-size:.86rem}.project-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.skills-layout{display:grid;grid-template-columns:minmax(260px,.8fr) minmax(0,1.2fr);gap:22px;align-items:center}.radar-wrap{display:grid;place-items:center;min-height:380px}#radar{max-width:100%;width:360px;height:360px}.skill-bars{display:grid;gap:16px}.skill-bar label{display:flex;justify-content:space-between;color:var(--text);margin-bottom:8px}.meter{height:10px;border:1px solid var(--line);border-radius:999px;overflow:hidden}.meter span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--accent));transition:width 1.2s}.timeline{position:relative;padding-left:28px}.timeline:before{content:"";position:absolute;left:7px;top:0;width:2px;height:var(--timeline,0%);background:linear-gradient(var(--primary),var(--accent));transition:height 1.4s}.time-item{position:relative;margin-bottom:18px}.time-item:before{content:"";position:absolute;left:-27px;top:26px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--primary);box-shadow:0 0 24px var(--primary)}.testimonial-wrap{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;gap:12px;align-items:center}.testimonial{min-height:210px;display:grid;align-content:center;text-align:center}.stars{color:var(--accent);font-size:1.35rem}.contact-layout{display:grid;grid-template-columns:minmax(280px,.9fr) minmax(0,1.1fr);gap:22px}.map{min-height:360px;background:linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px) 0 0/38px 38px,linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px) 0 0/38px 38px,radial-gradient(circle at 62% 48%,var(--hot),transparent 12%),radial-gradient(circle at 42% 58%,var(--primary),transparent 18%),var(--panel);position:relative}.map:after{content:"Hyderabad, India";position:absolute;left:24px;bottom:24px;color:var(--text);font-weight:900}.form{display:grid;gap:12px}input,textarea{width:100%;border:1px solid var(--line);background:color-mix(in srgb,var(--panel) 70%,transparent);color:var(--text);border-radius:var(--radius);padding:14px}textarea{min-height:132px;resize:vertical}.modal,.palette,.assistant,.resume-analyzer{position:fixed;z-index:60;display:none}.modal.open,.palette.open,.assistant.open,.resume-analyzer.open{display:block}.modal{inset:0;background:rgba(0,0,0,.62);backdrop-filter:blur(14px);padding:22px}.modal-panel{max-width:940px;max-height:calc(100vh - 44px);overflow:auto;margin:auto;background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}.resume-page{min-height:620px;background:var(--panel2);border:1px solid var(--line);border-radius:var(--radius);padding:36px;margin-top:16px}.palette{left:50%;top:12%;transform:translateX(-50%);width:min(720px,calc(100vw - 28px));background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px}.command{width:100%;margin-bottom:10px}.command-list{display:grid;gap:8px}.command-list button{justify-content:flex-start}.assistant{right:22px;bottom:22px;width:min(360px,calc(100vw - 44px));background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}.chat-log{height:260px;overflow:auto;padding:14px;display:grid;gap:10px;align-content:start}.bubble{padding:10px 12px;border-radius:var(--radius);background:var(--panel);color:var(--text)}.bubble.user{background:color-mix(in srgb,var(--primary) 25%,var(--panel));justify-self:end}.quick-questions{display:flex;flex-wrap:wrap;gap:8px;padding:0 14px 14px}.chat-toggle,.analyzer-toggle{position:fixed;z-index:45;right:22px;width:56px;height:56px;border-radius:50%;border:0;background:linear-gradient(135deg,var(--primary),var(--hot));color:#071018;font-weight:900;box-shadow:var(--shadow)}.chat-toggle{bottom:22px}.analyzer-toggle{bottom:88px}.resume-analyzer{right:92px;bottom:88px;width:min(420px,calc(100vw - 44px));background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}.score{font-size:3rem;font-weight:900;color:var(--primary)}footer{border-top:1px solid var(--line);padding:32px 22px;background:color-mix(in srgb,var(--bg2) 84%,transparent)}.footer-grid{max-width:var(--max);margin:auto;display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.footer-grid div{border:1px solid var(--line);background:var(--panel);padding:14px;border-radius:var(--radius)}.reveal{opacity:0;transform:translateY(28px) scale(.98);filter:blur(8px);transition:opacity .7s,transform .7s,filter .7s}.reveal.visible{opacity:1;transform:none;filter:none}.konami-note{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(90px);z-index:80;transition:transform .35s;background:var(--bg2);border:1px solid var(--line);padding:14px 18px;border-radius:var(--radius);box-shadow:var(--shadow)}.konami-note.show{transform:translateX(-50%) translateY(0)}@keyframes spin{to{transform:rotate(360deg)}}@keyframes drift{to{transform:translate3d(4%,-3%,0) scale(1.08)}}@keyframes pulse{50%{transform:translateX(-50%) scale(1.04)}}@keyframes marquee{to{transform:translateX(-50%)}}@media(max-width:920px){.hero-grid,.project,.skills-layout,.contact-layout{grid-template-columns:1fr}.grid-4,.grid-3,.grid-2,.footer-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.nav{align-items:flex-start;padding-block:14px}.nav-links a{display:none}.hero-visual{min-height:440px}section{padding:72px 18px}}@media(max-width:560px){.grid-4,.grid-3,.grid-2,.footer-grid{grid-template-columns:1fr}.section-head{display:block}.testimonial-wrap{grid-template-columns:1fr}.hero-visual{min-height:380px}.profile-orbit{width:210px;height:210px}.floating-stat{display:none}.theme-toggle{min-width:92px}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}.cursor,.trail-canvas{display:none}}
+  </style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Akhil","url":"https://akhil.in","jobTitle":["Python Developer","Java Full Stack Developer","Technical Trainer"],"knowsAbout":["Python","Java","Flask","React","AI","Machine Learning"],"sameAs":["https://github.com/akhil","https://www.linkedin.com/in/akhil"]}</script>
+</head>
+<body>
+  <div id="loader" role="status" aria-live="polite"><div class="loader-shell"><div class="loader-inner"><div class="loader-logo">AKHIL.IN</div><div class="terminal-line" id="loaderText">Initializing Portfolio...</div><div class="bar" aria-hidden="true"><span id="loadBar"></span></div><div class="percent"><span>Loading Experience</span><strong id="loadNum">0%</strong></div></div></div></div>
+  <div class="aurora"></div><canvas class="bg-canvas" id="bgCanvas" aria-hidden="true"></canvas><canvas class="trail-canvas" id="trailCanvas" aria-hidden="true"></canvas><div class="cursor" id="cursor" aria-hidden="true"></div>
+  <header><nav class="nav" aria-label="Primary navigation"><a class="brand" href="#home">Akhil<span>.in</span></a><div class="nav-links"><a href="#projects">Projects</a><a href="#skills">Skills</a><a href="#experience">Experience</a><a href="#contact">Contact</a><button class="icon-btn" id="paletteBtn" aria-label="Open command palette" title="Command palette">K</button><button class="pill-btn theme-toggle" id="themeBtn" aria-label="Toggle color theme">Dark</button></div></nav></header>
+  <main id="home"><section class="hero"><div class="wrap hero-grid"><div class="hero-copy reveal"><div class="live-row"><span class="status"><span class="dot"></span> Available for Work</span><span class="status">Last Updated: Today</span><span class="status">Asia/Kolkata</span></div><p class="eyebrow">Python, Java, AI and technical training</p><h1>Developer portfolio built to feel alive.</h1><div class="typing" aria-label="Current role"><span id="typing"></span><span aria-hidden="true">|</span></div><p>Akhil builds practical software, teaches complex ideas clearly, and turns full-stack systems into smooth, recruiter-friendly product stories.</p><div class="hero-actions"><a class="pill-btn primary" href="#projects">View Projects</a><button class="pill-btn" data-modal="resume">View Resume</button><button class="pill-btn" id="downloadResume">Download Resume</button></div></div><div class="hero-visual reveal tilt"><div class="code-card"><div>const profile = {</div><div>&nbsp;&nbsp;role: "Full Stack Developer",</div><div>&nbsp;&nbsp;focus: ["Python", "Java", "AI"],</div><div>&nbsp;&nbsp;status: "available"</div><div>};</div></div><div class="profile-orbit" aria-hidden="true"></div><div class="floating-stat s1"><strong>7+</strong><span>Projects</span></div><div class="floating-stat s2"><strong>500+</strong><span>Students</span></div></div></div></section>
+  <section class="carousel" aria-label="Technology stack carousel"><div class="track"><span class="tech">Python</span><span class="tech">Java</span><span class="tech">Flask</span><span class="tech">React</span><span class="tech">MySQL</span><span class="tech">Git</span><span class="tech">Docker</span><span class="tech">Linux</span><span class="tech">TensorFlow</span><span class="tech">Firebase</span><span class="tech">Python</span><span class="tech">Java</span><span class="tech">Flask</span><span class="tech">React</span><span class="tech">MySQL</span><span class="tech">Git</span><span class="tech">Docker</span><span class="tech">Linux</span><span class="tech">TensorFlow</span><span class="tech">Firebase</span></div></section>
+  <section id="stats"><div class="wrap grid grid-4"><div class="card metric reveal tilt"><strong data-count="24">0</strong><span>GitHub repositories</span></div><div class="card metric reveal tilt"><strong data-count="1300">0</strong><span>Commits tracked</span></div><div class="card metric reveal tilt"><strong data-count="86">0</strong><span>Stars earned</span></div><div class="card metric reveal tilt"><strong data-count="9">0</strong><span>Languages used</span></div></div></section>
+  <section id="projects"><div class="wrap"><div class="section-head reveal"><div><p class="eyebrow">Apple-style project showcase</p><h2>Case studies with context.</h2></div><button class="pill-btn" data-modal="case">Open Featured Case Study</button></div><div class="filters reveal" role="tablist" aria-label="Project filters"><button class="pill-btn filter active" data-filter="all">All</button><button class="pill-btn filter" data-filter="python">Python</button><button class="pill-btn filter" data-filter="java">Java</button><button class="pill-btn filter" data-filter="ai">AI</button><button class="pill-btn filter" data-filter="flask">Flask</button><button class="pill-btn filter" data-filter="web">Web</button><button class="pill-btn filter" data-filter="research">Research</button></div><div class="grid" id="projectGrid"></div></div></section>
+  <section id="skills"><div class="wrap"><div class="section-head reveal"><div><p class="eyebrow">Interactive skill graph</p><h2>Depth you can scan.</h2></div></div><div class="skills-layout"><div class="card radar-wrap reveal tilt"><canvas id="radar" width="360" height="360" aria-label="Skill radar chart"></canvas></div><div class="card reveal tilt"><div class="skill-bars" id="skillBars"></div></div></div></div></section>
+  <section id="experience"><div class="wrap"><div class="section-head reveal"><div><p class="eyebrow">Timeline animation</p><h2>Experience and achievements.</h2></div></div><div class="grid grid-2"><div class="timeline reveal" id="timeline"><article class="card time-item tilt"><p class="eyebrow">2026</p><h3>Full Stack Developer</h3><p>Building Flask, Java, and React experiences with polished delivery and measurable outcomes.</p></article><article class="card time-item tilt"><p class="eyebrow">2025</p><h3>Technical Trainer</h3><p>Guided learners through Python, Java, databases, interview prep, and applied AI workflows.</p></article><article class="card time-item tilt"><p class="eyebrow">TG SET</p><h3>Qualified Educator</h3><p>Validated academic depth while continuing hands-on software and open-source practice.</p></article></div><div class="grid grid-2"><div class="card metric reveal tilt"><strong data-count="7">0</strong><span>Projects completed</span></div><div class="card metric reveal tilt"><strong data-count="500">0</strong><span>Students trained</span></div><div class="card metric reveal tilt"><strong data-count="3">0</strong><span>Years experience</span></div><div class="card metric reveal tilt"><strong data-count="1200">0</strong><span>Coding hours</span></div></div></div></div></section>
+  <section id="certificates"><div class="wrap"><div class="section-head reveal"><div><p class="eyebrow">Credentials</p><h2>Certificates with previews.</h2></div></div><div class="grid grid-3"><button class="card reveal tilt" data-cert="TG SET Qualified"><h3>TG SET Qualified</h3><p>Preview, credential ID, verify link, and download action.</p></button><button class="card reveal tilt" data-cert="Python Development"><h3>Python Development</h3><p>Practical Python, automation, Flask, and backend delivery.</p></button><button class="card reveal tilt" data-cert="Machine Learning"><h3>Machine Learning</h3><p>Data workflows, model evaluation, and AI application patterns.</p></button></div></div></section>
+  <section id="testimonials"><div class="wrap"><div class="section-head reveal"><div><p class="eyebrow">Testimonials</p><h2>Proof from learners and clients.</h2></div></div><div class="testimonial-wrap reveal"><button class="icon-btn" id="prevTest" aria-label="Previous testimonial">‹</button><div class="card testimonial" id="testimonial"></div><button class="icon-btn" id="nextTest" aria-label="Next testimonial">›</button></div></div></section>
+  <section id="blog"><div class="wrap"><div class="section-head reveal"><div><p class="eyebrow">Latest writing</p><h2>Articles recruiters can skim.</h2></div></div><div class="grid grid-3"><article class="card reveal tilt"><p class="eyebrow">Python</p><h3>Clean Flask project structure</h3><p>How to keep routes, services, templates, and tests readable as projects grow.</p></article><article class="card reveal tilt"><p class="eyebrow">AI</p><h3>Practical model evaluation</h3><p>Metrics, prompts, and human review patterns for useful AI features.</p></article><article class="card reveal tilt"><p class="eyebrow">Interview Tips</p><h3>Java full-stack checklist</h3><p>Core Java, SQL, APIs, frontend basics, deployment, and debugging habits.</p></article></div></div></section>
+  <section id="github"><div class="wrap"><div class="section-head reveal"><div><p class="eyebrow">GitHub contribution graph</p><h2>Recent coding rhythm.</h2></div></div><div class="card reveal tilt" id="contribGraph" aria-label="Contribution calendar"></div></div></section>
+  <section id="contact"><div class="wrap"><div class="section-head reveal"><div><p class="eyebrow">Contact</p><h2>Ready for useful work.</h2></div></div><div class="contact-layout"><div class="card map reveal tilt"></div><div class="card reveal tilt"><div class="grid grid-2"><p><strong>Email</strong><br>akhil@example.com</p><p><strong>WhatsApp</strong><br>Available on request</p><p><strong>LinkedIn</strong><br>linkedin.com/in/akhil</p><p><strong>GitHub</strong><br>github.com/akhil</p></div><form class="form" id="contactForm"><input aria-label="Your name" required placeholder="Your name"><input aria-label="Your email" required type="email" placeholder="Your email"><textarea aria-label="Message" required placeholder="Tell Akhil about the role, project, or training need"></textarea><button class="pill-btn primary" type="submit">Send Message</button></form></div></div></div></section></main>
+  <footer><div class="footer-grid"><div><strong id="clock">--:--</strong><br><span>Current time</span></div><div><strong id="visitors">1</strong><br><span>Visitor counter</span></div><div><strong>v2.6.0</strong><br><span>Portfolio version</span></div><div><strong>HTML CSS JS</strong><br><span>Built with</span></div><div><strong>Made by Akhil</strong><br><span>Last updated today</span></div></div></footer>
+  <div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="Command palette"><input class="command" id="commandInput" placeholder="Search projects, skills, certificates, or actions" aria-label="Command search"><div class="command-list" id="commandList"></div></div><div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Portfolio modal"><div class="modal-panel"><button class="icon-btn" id="closeModal" aria-label="Close modal">X</button><div id="modalBody"></div></div></div><button class="analyzer-toggle" id="analyzerBtn" aria-label="Open resume analyzer">ATS</button><aside class="resume-analyzer" id="analyzer" aria-label="AI resume analyzer"><h3>AI Resume Analyzer</h3><p>Upload simulation compares a resume against Akhil's profile.</p><input type="file" id="resumeUpload" aria-label="Upload resume"><div id="analysisResult"><div class="score">92</div><p>Strong match for Python, Java, Flask, teaching, and AI keywords. Add Docker deployment outcomes for a higher ATS score.</p></div></aside><button class="chat-toggle" id="chatBtn" aria-label="Open AI assistant">AI</button><aside class="assistant" id="assistant" aria-label="AI chat assistant"><div class="chat-log" id="chatLog"><div class="bubble">Hi! Ask me about Akhil.</div></div><div class="quick-questions" id="quickQuestions"></div></aside><div class="konami-note" id="konamiNote">Developer mode unlocked. Secret theme enabled.</div>
+  <script>
+    const $=(q,r=document)=>r.querySelector(q),$$=(q,r=document)=>[...r.querySelectorAll(q)],body=document.body,prefersReduced=matchMedia('(prefers-reduced-motion: reduce)').matches;const projects=[{title:'AI Interview Coach',cats:['python','ai','web'],stack:['Python','Flask','NLP','SQLite'],timeline:'8 weeks',desc:'A coaching app that scores answers, suggests keywords, and tracks readiness by role.',challenges:'Balancing useful AI feedback with plain, non-intimidating UX.',features:['Role-based mock interviews','Keyword scoring','Progress dashboard']},{title:'Campus ERP Lite',cats:['java','web'],stack:['Java','Spring','MySQL','React'],timeline:'10 weeks',desc:'A compact academic management system for students, attendance, and reports.',challenges:'Keeping data screens dense without making them visually heavy.',features:['Student records','Attendance reports','Role access']},{title:'Research Paper Finder',cats:['python','flask','research'],stack:['Flask','BeautifulSoup','PostgreSQL'],timeline:'5 weeks',desc:'A searchable research index with saved topics and exportable reading lists.',challenges:'Normalizing metadata from inconsistent academic sources.',features:['Topic search','Saved lists','Citation export']},{title:'Smart Expense Classifier',cats:['python','ai','machine-learning'],stack:['Python','Pandas','Scikit-learn'],timeline:'4 weeks',desc:'A lightweight ML tool that labels expenses and surfaces spending patterns.',challenges:'Making confidence and corrections clear for non-technical users.',features:['CSV import','Category predictions','Monthly insights']}];const skills=[['Python',94],['Java',88],['Flask',91],['React',82],['MySQL',86],['AI/ML',79],['Training',96]],testimonials=[{quote:'He is an outstanding trainer. Complex Python topics finally felt practical.',by:'Student'},{quote:'Excellent Python developer with a calm, precise way of solving product problems.',by:'Client'},{quote:'Akhil explains Java full-stack concepts with rare patience and structure.',by:'Workshop attendee'}];function initLoader(){const bar=$('#loadBar'),num=$('#loadNum'),text=$('#loaderText'),lines=['Initializing Portfolio...','Loading project systems...','Preparing animations...','Optimizing recruiter impact...','Loading Experience...'];let v=0;const timer=setInterval(()=>{v+=Math.ceil(Math.random()*12);if(v>=100)v=100;bar.style.setProperty('--load',v+'%');num.textContent=v+'%';text.textContent=lines[Math.min(lines.length-1,Math.floor(v/24))];if(v===100){clearInterval(timer);setTimeout(()=>$('#loader').classList.add('done'),450)}},prefersReduced?20:130)}function initTheme(){const saved=localStorage.getItem('akhil-theme')||'dark';body.dataset.theme=saved;$('#themeBtn').textContent=saved==='dark'?'Dark':'Light';$('#themeBtn').addEventListener('click',()=>{const n=body.dataset.theme==='dark'?'light':'dark';body.dataset.theme=n;localStorage.setItem('akhil-theme',n);$('#themeBtn').textContent=n==='dark'?'Dark':'Light'})}function initTyping(){const roles=['Python Developer','Java Full Stack Developer','Technical Trainer','Flask Developer','AI Enthusiast','TG SET Qualified','Open Source Contributor'];let r=0,i=0,d=false;const t=$('#typing');(function tick(){const w=roles[r];t.textContent=w.slice(0,i);if(!d&&i<w.length)i++;else if(!d)d=true;else if(i>0)i--;else{d=false;r=(r+1)%roles.length}setTimeout(tick,d?42:82)})()}function renderProjects(f='all'){const g=$('#projectGrid');g.innerHTML='';projects.filter(p=>f==='all'||p.cats.includes(f)).forEach((p,i)=>{const el=document.createElement('article');el.className='card project reveal tilt visible';el.innerHTML='<div class="shot" role="img" aria-label="'+p.title+' project screenshot mockup"></div><div><p class="eyebrow">'+p.timeline+'</p><h3>'+p.title+'</h3><p>'+p.desc+'</p><div class="tags">'+p.stack.map(s=>'<span class="tag">'+s+'</span>').join('')+'</div><p><strong>Challenge:</strong> '+p.challenges+'</p><p><strong>Features:</strong> '+p.features.join(', ')+'</p><div class="project-actions"><a class="pill-btn" href="https://github.com/akhil" target="_blank" rel="noreferrer">GitHub</a><button class="pill-btn" data-demo="'+i+'">Live Demo</button><button class="pill-btn primary" data-case="'+i+'">Case Study</button></div></div>';g.append(el)})}function initFilters(){$$('.filter').forEach(b=>b.addEventListener('click',()=>{$$('.filter').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderProjects(b.dataset.filter);initTilt()}))}function initSkills(){$('#skillBars').innerHTML=skills.map(([n,v])=>'<div class="skill-bar"><label><span>'+n+'</span><strong>'+v+'%</strong></label><div class="meter"><span data-width="'+v+'%"></span></div></div>').join('');drawRadar()}function drawRadar(){const c=$('#radar'),ctx=c.getContext('2d'),cx=180,cy=180,max=130;ctx.clearRect(0,0,360,360);ctx.lineWidth=1;for(let ring=1;ring<=5;ring++){ctx.beginPath();skills.forEach((_,i)=>{const a=-Math.PI/2+i*Math.PI*2/skills.length,r=max*ring/5,x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r;i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.closePath();ctx.strokeStyle='rgba(255,255,255,.14)';ctx.stroke()}ctx.beginPath();skills.forEach(([n,v],i)=>{const a=-Math.PI/2+i*Math.PI*2/skills.length,r=max*v/100,x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r;i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.closePath();ctx.fillStyle='rgba(86,215,198,.22)';ctx.fill();ctx.strokeStyle='#56d7c6';ctx.lineWidth=3;ctx.stroke();ctx.fillStyle=getComputedStyle(body).getPropertyValue('--text');ctx.font='700 13px Inter, sans-serif';skills.forEach(([n],i)=>{const a=-Math.PI/2+i*Math.PI*2/skills.length;ctx.fillText(n,cx+Math.cos(a)*150-22,cy+Math.sin(a)*150+4)})}function initReveal(){const o=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');e.target.querySelectorAll('.meter span').forEach(m=>m.style.width=m.dataset.width);e.target.querySelectorAll('[data-count]').forEach(countUp);if(e.target.id==='timeline')e.target.style.setProperty('--timeline','100%')}}),{threshold:.18});$$('.reveal,#timeline').forEach(el=>o.observe(el))}function countUp(el){if(el.dataset.done)return;el.dataset.done='1';const end=Number(el.dataset.count),s=performance.now();function step(t){const p=Math.min(1,(t-s)/1000);el.textContent=Math.floor(end*p)+(end>=100?'+':'');if(p<1)requestAnimationFrame(step)}requestAnimationFrame(step)}function initTilt(){if(prefersReduced)return;$$('.tilt').forEach(card=>{if(card.dataset.tiltReady)return;card.dataset.tiltReady='1';card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;card.style.transform='perspective(900px) rotateX('+(y*-7)+'deg) rotateY('+(x*9)+'deg) translateY(-2px)'});card.addEventListener('mouseleave',()=>card.style.transform='')})}function initBackground(){const canvas=$('#bgCanvas'),trail=$('#trailCanvas'),ctx=canvas.getContext('2d'),tctx=trail.getContext('2d');let w,h,mouse={x:0,y:0},sparks=[];const ps=Array.from({length:70},()=>({x:Math.random(),y:Math.random(),vx:(Math.random()-.5)*.0009,vy:(Math.random()-.5)*.0009}));function resize(){w=canvas.width=trail.width=innerWidth;h=canvas.height=trail.height=innerHeight}addEventListener('resize',resize);resize();addEventListener('pointermove',e=>{mouse={x:e.clientX,y:e.clientY};sparks.push({x:e.clientX,y:e.clientY,life:1,vx:(Math.random()-.5)*2,vy:(Math.random()-.5)*2})});function frame(){ctx.clearRect(0,0,w,h);ctx.fillStyle='rgba(255,255,255,.7)';ps.forEach((p,i)=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>1)p.vx*=-1;if(p.y<0||p.y>1)p.vy*=-1;const x=p.x*w,y=p.y*h;ctx.beginPath();ctx.arc(x,y,1.6,0,Math.PI*2);ctx.fill();ps.slice(i+1).forEach(q=>{const qx=q.x*w,qy=q.y*h,d=Math.hypot(x-qx,y-qy);if(d<130){ctx.strokeStyle='rgba(86,215,198,'+((130-d)/650)+')';ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(qx,qy);ctx.stroke()}});const md=Math.hypot(x-mouse.x,y-mouse.y);if(md<170){ctx.strokeStyle='rgba(255,191,105,'+((170-md)/420)+')';ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(mouse.x,mouse.y);ctx.stroke()}});tctx.fillStyle='rgba(0,0,0,.16)';tctx.fillRect(0,0,w,h);sparks.forEach(s=>{s.x+=s.vx;s.y+=s.vy;s.life-=.035;tctx.fillStyle='rgba(86,215,198,'+s.life+')';tctx.beginPath();tctx.arc(s.x,s.y,8*s.life,0,Math.PI*2);tctx.fill()});sparks=sparks.filter(s=>s.life>0);requestAnimationFrame(frame)}if(!prefersReduced)frame()}function initCursor(){const c=$('#cursor');addEventListener('pointermove',e=>{c.style.left=e.clientX+'px';c.style.top=e.clientY+'px'});document.addEventListener('mouseover',e=>{if(e.target.closest('a,button,.card,.shot,input,textarea'))c.classList.add('active')});document.addEventListener('mouseout',e=>{if(e.target.closest('a,button,.card,.shot,input,textarea'))c.classList.remove('active')})}function initModals(){const modal=$('#modal'),mb=$('#modalBody'),openModal=html=>{mb.innerHTML=html;modal.classList.add('open')},close=()=>modal.classList.remove('open');$('#closeModal').addEventListener('click',close);modal.addEventListener('click',e=>{if(e.target===modal)close()});document.addEventListener('click',e=>{const resume=e.target.closest('[data-modal="resume"]'),caseBtn=e.target.closest('[data-case],[data-modal="case"]'),cert=e.target.closest('[data-cert]');if(resume)openModal('<h2>Akhil Resume Preview</h2><div class="resume-page"><h3>Akhil</h3><p>Python Developer | Java Full Stack Developer | Technical Trainer | Flask Developer | AI Enthusiast</p><h3>Highlights</h3><p>TG SET Qualified, project-based trainer, full-stack builder, and open-source contributor.</p><h3>Skills</h3><p>Python, Java, Flask, React, MySQL, Git, Docker, Linux, TensorFlow, Firebase.</p><h3>Experience</h3><p>Built production-style web apps, trained students, and created applied AI workflows.</p></div>');if(caseBtn){const p=projects[Number(caseBtn.dataset.case||0)];openModal('<h2>'+p.title+'</h2><div class="shot" style="min-height:320px;margin:18px 0"></div><p>'+p.desc+'</p><p><strong>Timeline:</strong> '+p.timeline+'</p><p><strong>Challenge:</strong> '+p.challenges+'</p><p><strong>Stack:</strong> '+p.stack.join(', ')+'</p><p><strong>Features:</strong> '+p.features.join(', ')+'</p><div class="project-actions"><a class="pill-btn" href="https://github.com/akhil" target="_blank" rel="noreferrer">GitHub</a><button class="pill-btn primary">Live Demo</button></div>')}if(cert)openModal('<h2>'+cert.dataset.cert+'</h2><div class="resume-page"><h3>Certificate Preview</h3><p>Credential ID: AKHIL-'+Math.floor(Math.random()*9000+1000)+'</p><p>Verification link and downloadable certificate preview are ready to connect to real credential assets.</p><button class="pill-btn primary">Download Certificate</button></div>')});$('#downloadResume').addEventListener('click',()=>{const blob=new Blob(['Akhil Resume\nPython Developer | Java Full Stack Developer | Technical Trainer\nSkills: Python, Java, Flask, React, MySQL, AI/ML'],{type:'text/plain'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Akhil-Resume.txt';a.click();URL.revokeObjectURL(a.href)});window.closeModal=close}function initPalette(){const pal=$('#palette'),input=$('#commandInput'),list=$('#commandList'),cmds=[['Go Home','#home'],['Search Projects','#projects'],['Search Skills','#skills'],['Search Certificates','#certificates'],['Go Contact','#contact'],['Download Resume','download'],['Go GitHub','https://github.com/akhil']];function render(){const q=input.value.toLowerCase();list.innerHTML=cmds.filter(([n])=>n.toLowerCase().includes(q)).map(([n,a])=>'<button class="pill-btn" data-action="'+a+'">'+n+'</button>').join('')}function openPal(){pal.classList.add('open');render();setTimeout(()=>input.focus(),30)}function close(){pal.classList.remove('open')}$('#paletteBtn').addEventListener('click',openPal);input.addEventListener('input',render);list.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const a=b.dataset.action;close();if(a==='download')$('#downloadResume').click();else if(a.startsWith('http'))open(a,'_blank');else location.hash=a});addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openPal()}if(e.key==='Escape'){close();$('#modal').classList.remove('open');$('#assistant').classList.remove('open');$('#analyzer').classList.remove('open')}})}function initShortcuts(){addEventListener('keydown',e=>{if(e.target.matches('input, textarea')||e.ctrlKey||e.metaKey||e.altKey)return;const k=e.key.toLowerCase();if(k==='g')open('https://github.com/akhil','_blank');if(k==='r')$('[data-modal="resume"]').click();if(k==='p')location.hash='#projects';if(k==='c')location.hash='#contact'})}function initTestimonials(){let i=0;function render(){$('#testimonial').innerHTML='<div class="stars">★★★★★</div><h3>"'+testimonials[i].quote+'"</h3><p>'+testimonials[i].by+'</p>'}$('#prevTest').addEventListener('click',()=>{i=(i+testimonials.length-1)%testimonials.length;render()});$('#nextTest').addEventListener('click',()=>{i=(i+1)%testimonials.length;render()});setInterval(()=>{i=(i+1)%testimonials.length;render()},5000);render()}function initContrib(){const g=$('#contribGraph');g.style.display='grid';g.style.gridTemplateColumns='repeat(26,1fr)';g.style.gap='5px';g.innerHTML=Array.from({length:182},(_,i)=>{const l=(i*7+Math.floor(i/5))%5;return '<span title="'+l+' contributions" style="aspect-ratio:1;border-radius:4px;background:color-mix(in srgb,var(--primary) '+(l*18+8)+'%,var(--panel));border:1px solid var(--line)"></span>'}).join('')}function initAssistant(){const panel=$('#assistant'),log=$('#chatLog'),answers={'Who are you?':'Akhil is a developer and technical trainer focused on Python, Java full stack, Flask, and applied AI.','Projects?':'Featured projects include an AI Interview Coach, Campus ERP Lite, Research Paper Finder, and Smart Expense Classifier.','Skills?':'Core skills: Python, Java, Flask, React, MySQL, Git, Docker, Linux, TensorFlow, Firebase, and technical training.','Experience?':'Akhil combines project delivery, student training, TG SET qualification, and practical software development.','Resume?':'Use the View Resume button in the hero, or press R to open the resume preview.','Contact?':'Jump to the contact section or press C. Email, LinkedIn, GitHub, and WhatsApp touchpoints are listed there.'};$('#quickQuestions').innerHTML=Object.keys(answers).map(q=>'<button class="pill-btn">'+q+'</button>').join('');$('#chatBtn').addEventListener('click',()=>panel.classList.toggle('open'));$('#quickQuestions').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;log.insertAdjacentHTML('beforeend','<div class="bubble user">'+b.textContent+'</div><div class="bubble">'+answers[b.textContent]+'</div>');log.scrollTop=log.scrollHeight})}function initAnalyzer(){$('#analyzerBtn').addEventListener('click',()=>$('#analyzer').classList.toggle('open'));$('#resumeUpload').addEventListener('change',()=>{$('#analysisResult').innerHTML='<div class="score">95</div><p>Great match. Resume includes strong developer keywords. Add quantified project outcomes and live links for extra recruiter clarity.</p>'})}function initFooter(){const v=Number(localStorage.getItem('akhil-visitors')||0)+1;localStorage.setItem('akhil-visitors',v);$('#visitors').textContent=v;setInterval(()=>$('#clock').textContent=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}),1000)}function initEasterEgg(){console.info('Akhil.in developer mode: press the Konami code for the secret theme.');const code=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];let seq=[];addEventListener('keydown',e=>{seq.push(e.key);seq=seq.slice(-code.length);if(code.every((k,i)=>k===seq[i])){body.classList.toggle('palette-secret');$('#konamiNote').classList.add('show');setTimeout(()=>$('#konamiNote').classList.remove('show'),2800)}})}$('#contactForm').addEventListener('submit',e=>{e.preventDefault();e.currentTarget.reset();alert('Message drafted. Connect this form to EmailJS, Formspree, or your backend to send it live.')});initLoader();initTheme();initTyping();renderProjects();initFilters();initSkills();initReveal();initTilt();initBackground();initCursor();initModals();initPalette();initShortcuts();initTestimonials();initContrib();initAssistant();initAnalyzer();initFooter();initEasterEgg();if('serviceWorker'in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('sw.js');
+  </script>
+</body>
 </html>
